@@ -7,8 +7,8 @@
     "colors": ["Чёрный","Белый","Серый","Синий"],
     "sizes": ["XS","S","M","L","XL","XXL","XXXL"],
     "images": [
-      "https://images.unsplash.com/photo-1520974735194-6c1c90bb4f14",
-      "https://images.unsplash.com/photo-1618354691438-25bc04584c23"
+      "images/hoodie-1.jpg",
+      "images/hoodie-12.jpg""
     ]
   },
   {
@@ -19,8 +19,8 @@
     "colors": ["Белый","Чёрный","Синий","Красный"],
     "sizes": ["36","37","38","39","40","41","42","43","44","45","46"],
     "images": [
-      "https://images.unsplash.com/photo-1606813909029-52d9f8d45d62",
-      "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb"
+      "images/nikeairforce1.jpg"",
+      "images/nikeairforce12.jpg"
     ]
   },
   {
@@ -48,3 +48,4 @@
     ]
   }
 ]
+
