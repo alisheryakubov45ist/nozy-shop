@@ -60,11 +60,15 @@ function add(id){
   updateCart();
 }
 
+// Удалить товар
+function removeItem(index){cart.splice(index,1);updateCart();}
+
 // Обновляем счётчик и список
 function updateCart(){
   let qty=0,sum=0;
   cart.forEach(i=>{qty+=i.qty;sum+=i.qty*i.price});
   document.getElementById("cart-count-bubble").innerText=qty;
+  document.getElementById("cart-total").innerText = `Итого: ${sum} сомони`;
   updateCartList();
 }
 
@@ -79,9 +83,10 @@ function toggleCartList(){
 function updateCartList(){
   const container=document.getElementById("cart-items");
   container.innerHTML="";
-  cart.forEach(i=>{
+  cart.forEach((i,index)=>{
     const div=document.createElement("div");
-    div.innerHTML=`<b>${i.name}</b> (${i.color}, ${i.size}) x${i.qty} — ${i.price*i.qty} сомони`;
+    div.innerHTML=`<span><b>${i.name}</b> (${i.color}, ${i.size}) x${i.qty} — ${i.price*i.qty} сомони</span>
+    <span class="remove-btn" onclick="removeItem(${index})">✖</span>`;
     container.appendChild(div);
   });
 }
@@ -94,12 +99,13 @@ function checkout(){
   text+=`Самовывоз: г. Душанбе, мечеть Мехкалонна
 Оплата при получении
 Телефон поддержки: +992901234567`;
-  window.open("https://t.me/AMULEEE?text="+encodeURIComponent(text));
-  window.open("https://wa.me/992973589922?text="+encodeURIComponent(text));
+  window.open("https://t.me/YOUR_USERNAME?text="+encodeURIComponent(text));
+  window.open("https://wa.me/992901234567?text="+encodeURIComponent(text));
 }
 
 // Фильтр
 function filter(cat){cat==="all"?render(products):render(products.filter(p=>p.category===cat))}
+
 
 
 
