@@ -1,120 +1,139 @@
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #0b0b0b;
-  color: white;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#0b0b0b;
+  color:#fff;
 }
+
+/* LOADER */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#0b0b0b;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+.spinner{
+  width:40px;height:40px;
+  border:4px solid #333;
+  border-top:4px solid #ff7a18;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* HEADER */
-.top {
-  padding: 15px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
+.top{
+  padding:20px 15px 10px 15px;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(10px)
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 20px;
+/* BRANDING */
+.branding{
+  text-align:center;
+  margin-bottom:12px;
+}
+.branding h1{
+  font-size:28px;
+  font-weight:700;
+  margin:0;
+  letter-spacing:2px;
+}
+.branding p{
+  font-size:14px;
+  font-weight:400;
+  margin:4px 0 0 0;
+  opacity:0.8;
 }
 
-.logo img {
-  width: 36px;
+/* CATEGORIES */
+.categories{
+  display:flex;gap:8px;margin-top:10px;overflow-x:auto;justify-content:center;
+}
+.categories button{
+  border:1px solid #333;
+  background:transparent;
+  color:white;
+  padding:6px 12px;
+  border-radius:20px;
+  font-weight:500;
 }
 
-.categories {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+/* GRID */
+.grid{
+  padding:16px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
 }
 
-.categories button {
-  background: transparent;
-  border: 1px solid #333;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
+/* CARD */
+.card{
+  background:rgba(255,255,255,.05);
+  border-radius:18px;
+  padding:10px;
+  animation:fade .4s ease;
 }
-
-/* PRODUCTS */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  background: rgba(255,255,255,0.05);
-  border-radius: 20px;
-  padding: 12px;
-  animation: fadeUp 0.5s ease;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fade{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1}
 }
 
 /* CAROUSEL */
-.carousel {
-  position: relative;
+.carousel{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+}
+.carousel img{
+  width:100%;
+  pointer-events:auto;
 }
 
-.carousel img {
-  width: 100%;
-  border-radius: 14px;
-}
+/* INFO */
+.card h3{margin:6px 0 2px;font-size:15px}
+.card p{margin:0;font-size:14px;opacity:.8}
 
-.carousel button {
-  position: absolute;
-  top: 45%;
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  padding: 6px;
-}
-
-.prev { left: 5px; }
-.next { right: 5px; }
-
-/* CARD */
-.card h3 { margin: 8px 0 4px; }
-.card p { font-size: 14px; opacity: .8; }
-
-select {
-  width: 100%;
-  margin-top: 6px;
-  background: #111;
-  color: white;
-  border-radius: 8px;
-  padding: 6px;
-  border: none;
-}
-
-.card button {
-  margin-top: 8px;
-  width: 100%;
-  padding: 10px;
-  background: linear-gradient(135deg,#ff7a18,#ff3d00);
-  border: none;
-  border-radius: 10px;
-  color: white;
+button{
+  width:100%;
+  margin-top:6px;
+  padding:8px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#ff7a18,#ff3d00);
+  color:white;
+  font-weight:600;
 }
 
 /* CART */
-.cart {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #111;
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.cart{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#111;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
 }
+
+/* FULLSCREEN */
+#viewer{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+#viewer img{
+  max-width:90%;
+  max-height:90%;
+}
+
+
