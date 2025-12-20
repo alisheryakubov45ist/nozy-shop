@@ -9,13 +9,13 @@
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader"><div class="spinner"></div></div>
 
 <header class="top">
   <div class="branding">
     <h1>NOZY Store</h1>
     <p>пространство женского люкса</p>
+    <p>☎ Поддержка: +992901234567</p>
   </div>
   <div class="categories">
     <button onclick="filter('all')">Все</button>
@@ -28,13 +28,11 @@
 
 <main id="products" class="grid"></main>
 
-<!-- CART -->
-<div class="cart">
+<div class="cart" id="cart-bar">
   <span><b id="cart-count">0</b> • <b id="cart-sum">0</b> сомони</span>
   <button onclick="checkout()">Оформить</button>
 </div>
 
-<!-- FULLSCREEN VIEW -->
 <div id="viewer" onclick="closeViewer()">
   <img id="viewer-img">
 </div>
@@ -42,5 +40,3 @@
 <script src="app.js"></script>
 </body>
 </html>
-
-
