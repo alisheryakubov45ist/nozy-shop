@@ -1,16 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Магазин</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <title>NOZY Boutique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>🛒 Мой магазин</h2>
+<header class="top">
+  <div class="logo">
+    <img src="https://i.imgur.com/4ZQZ4Zx.png">
+    <span>NOZY</span>
+  </div>
 
-<div id="products"></div>
+  <nav class="categories">
+    <button onclick="filter('all')">Все</button>
+    <button onclick="filter('clothes')">Одежда</button>
+    <button onclick="filter('scarves')">Платки</button>
+    <button onclick="filter('shoes')">Обувь</button>
+    <button onclick="filter('accessories')">Аксессуары</button>
+  </nav>
+</header>
+
+<main id="products" class="grid"></main>
+
+<!-- КОРЗИНА -->
+<div class="cart">
+  <span id="cart-count">0 товаров</span>
+  <span id="cart-sum">0 сомони</span>
+  <button onclick="checkout()">Оформить</button>
+</div>
 
 <script src="app.js"></script>
 </body>
 </html>
+
+
