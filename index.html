@@ -2,40 +2,47 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>NOZY Boutique</title>
+  <title>NOZY store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="top">
-  <div class="logo">
-    <img src="https://i.imgur.com/4ZQZ4Zx.png">
-    <span>NOZY</span>
-  </div>
+<!-- LOADER -->
+<div id="loader"><div class="spinner"></div></div>
 
-  <nav class="categories">
+<header class="top">
+  <div class="branding">
+    <h1>NOZY store</h1>
+    <p>пространство женского люкса</p>
+  </div>
+  <div class="categories">
     <button onclick="filter('all')">Все</button>
     <button onclick="filter('clothes')">Одежда</button>
     <button onclick="filter('scarves')">Платки</button>
     <button onclick="filter('shoes')">Обувь</button>
     <button onclick="filter('accessories')">Аксессуары</button>
-  </nav>
+  </div>
 </header>
 
 <main id="products" class="grid"></main>
 
-<!-- КОРЗИНА -->
+<!-- CART -->
 <div class="cart">
-  <span id="cart-count">0 товаров</span>
-  <span id="cart-sum">0 сомони</span>
+  <span><b id="cart-count">0</b> • <b id="cart-sum">0</b> сомони</span>
   <button onclick="checkout()">Оформить</button>
+</div>
+
+<!-- FULLSCREEN VIEW -->
+<div id="viewer" onclick="closeViewer()">
+  <img id="viewer-img">
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
+
+
 
 
