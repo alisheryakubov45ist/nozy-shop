@@ -8,7 +8,7 @@
     "sizes": ["XS","S","M","L","XL","XXL","XXXL"],
     "images": [
       "images/hoodie-1.jpg",
-      "images/hoodie-12.jpg""
+      "images/hoodie-12.jpg"
     ]
   },
   {
@@ -19,7 +19,7 @@
     "colors": ["Белый","Чёрный","Синий","Красный"],
     "sizes": ["36","37","38","39","40","41","42","43","44","45","46"],
     "images": [
-      "images/nikeairforce1.jpg"",
+      "images/nikeairforce1.jpg",
       "images/nikeairforce12.jpg"
     ]
   },
@@ -48,4 +48,5 @@
     ]
   }
 ]
+
 
