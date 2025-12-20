@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>NOZY Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOZY Boutique</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -13,8 +13,8 @@
 
 <header class="top">
   <div class="branding">
-    <h1>NOZY Store</h1>
-    <p>пространство женского люкса</p>
+    <h1>NOZY Boutique</h1>
+    <p>Стиль. Качество. Оплата при получении.</p>
     <p>☎ Поддержка: +992901234567</p>
   </div>
   <div class="categories">
@@ -28,11 +28,19 @@
 
 <main id="products" class="grid"></main>
 
-<div class="cart" id="cart-bar">
-  <span><b id="cart-count">0</b> • <b id="cart-sum">0</b> сомони</span>
-  <button onclick="checkout()">Оформить</button>
+<!-- Круглый значок корзины -->
+<div id="cart-btn" onclick="toggleCartList()">
+  🛒<span id="cart-count-bubble">0</span>
 </div>
 
+<!-- Список товаров в корзине -->
+<div id="cart-list">
+  <h3>Корзина</h3>
+  <div id="cart-items"></div>
+  <button onclick="checkout()">Оформить заказ</button>
+</div>
+
+<!-- Полноэкранный просмотр -->
 <div id="viewer" onclick="closeViewer()">
   <img id="viewer-img">
 </div>
