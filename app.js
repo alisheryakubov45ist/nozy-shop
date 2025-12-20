@@ -99,12 +99,13 @@ function checkout(){
   text+=`Самовывоз: г. Душанбе, мечеть Мехкалонна
 Оплата при получении
 Телефон поддержки: +992901234567`;
-  window.open("https://t.me/YOUR_USERNAME?text="+encodeURIComponent(text));
-  window.open("https://wa.me/992901234567?text="+encodeURIComponent(text));
+  window.open("https://t.me/AMULEEE?text="+encodeURIComponent(text));
+  window.open("https://wa.me/992973589922?text="+encodeURIComponent(text));
 }
 
 // Фильтр
 function filter(cat){cat==="all"?render(products):render(products.filter(p=>p.category===cat))}
+
 
 
 
