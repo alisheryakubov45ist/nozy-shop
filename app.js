@@ -16,9 +16,15 @@ function render(list){
     slideIndex[p.id]=0;
     box.innerHTML+=`
       <div class="card">
-        <div class="carousel" ontouchstart="touchStart(event,${p.id})" ontouchend="touchEnd(event,${p.id})">
-          <img src="${p.images[0]}" onclick="openViewer('${p.images[0]}')">
-        </div>
+        <div class="carousel"
+     ontouchstart="touchStart(event, ${p.id})"
+     ontouchend="touchEnd(event, ${p.id})">
+  <img
+    id="img-${p.id}"
+    src="${p.images[0]}"
+    onclick="openViewer(this.src)"
+  >
+</div>
         <h3>${p.name}</h3>
         <p>${p.price} сомони</p>
         <label>Цвет:
@@ -40,10 +46,10 @@ function touchEnd(e,id){
   if(startX-endX>50) slide(id,1);
   if(endX-startX>50) slide(id,-1);
 }
-function slide(id,dir){
-  const p=products.find(x=>x.id===id);
-  slideIndex[id]=(slideIndex[id]+dir+p.images.length)%p.images.length;
-  document.querySelector(`[onclick="openViewer('${p.images[slideIndex[id]]}')"]`).src=p.images[slideIndex[id]];
+function slide(id, dir) {
+  const p = products.find(x => x.id === id);
+  slideIndex[id] = (slideIndex[id] + dir + p.images.length) % p.images.length;
+  document.getElementById(`img-${id}`).src = p.images[slideIndex[id]];
 }
 
 // Полноэкранный просмотр
@@ -105,6 +111,7 @@ function checkout(){
 
 // Фильтр
 function filter(cat){cat==="all"?render(products):render(products.filter(p=>p.category===cat))}
+
 
 
 
