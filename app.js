@@ -1,119 +1,154 @@
-let cart=[],products=[],slideIndex={},startX=0;
+let products = [];
+let cart = [];
+let startX = 0;
+let indexes = {};
 
-// Загрузка JSON
-window.onload=()=>{
-  fetch('products.json')
-    .then(res=>res.json())
-    .then(data=>{products=data;render(products);document.getElementById("loader").style.display="none"})
-    .catch(err=>console.error(err));
-};
+// FULLSCREEN VARIABLES
+let viewerImages = [];
+let viewerIndex = 0;
+let viewerStartX = 0;
+let autoCarouselInterval = null;
 
-// Рендер товаров
-function render(list){
-  const box=document.getElementById("products");
-  box.innerHTML="";
-  list.forEach(p=>{
-    slideIndex[p.id]=0;
-    box.innerHTML+=`
+const viewer = document.getElementById("viewer");
+const viewerImg = document.getElementById("viewer-img");
+const viewerDots = document.getElementById("viewer-dots");
+const cartEl = document.getElementById("cart");
+
+fetch("products.json")
+  .then(r => r.json())
+  .then(data => {
+    products = data;
+    render();
+  });
+
+function render() {
+  const box = document.getElementById("products");
+  box.innerHTML = "";
+
+  products.forEach(p => {
+    indexes[p.id] = 0;
+
+    box.innerHTML += `
       <div class="card">
-        <div class="carousel"
-     ontouchstart="touchStart(event, ${p.id})"
-     ontouchend="touchEnd(event, ${p.id})">
-  <img
-    id="img-${p.id}"
-    src="${p.images[0]}"
-    onclick="openViewer(this.src)"
-  >
-</div>
-        <h3>${p.name}</h3>
-        <p>${p.price} сомони</p>
-        <label>Цвет:
-          <select id="color-${p.id}">${p.colors.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
-        </label>
-        <label>Размер:
-          <select id="size-${p.id}">${p.sizes.map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
-        </label>
-        <button onclick="add(${p.id})">В корзину</button>
+        <div ontouchstart="touchStart(event)"
+             ontouchend="touchEnd(event, ${p.id})">
+          <img id="img-${p.id}"
+               src="${p.images[0]}"
+               onclick='openViewer("${p.images[0]}", ${JSON.stringify(p.images)})'>
+        </div>
+        <h3>${p.title}</h3>
+        <p>$${p.price}</p>
+        <button onclick="addToCart(${p.id})">Добавить</button>
       </div>
     `;
   });
 }
 
-// Свайп фото
-function touchStart(e,id){startX=e.changedTouches[0].screenX}
-function touchEnd(e,id){
-  let endX=e.changedTouches[0].screenX;
-  if(startX-endX>50) slide(id,1);
-  if(endX-startX>50) slide(id,-1);
-}
-function slide(id, dir) {
+function touchStart(e) { startX = e.touches[0].clientX; }
+function touchEnd(e, id) {
+  const diff = startX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) < 50) return;
+
   const p = products.find(x => x.id === id);
-  slideIndex[id] = (slideIndex[id] + dir + p.images.length) % p.images.length;
-  document.getElementById(`img-${id}`).src = p.images[slideIndex[id]];
+  if (!p) return;
+
+  if (diff > 0) indexes[id]++; else indexes[id]--;
+  if (indexes[id] < 0) indexes[id] = p.images.length-1;
+  if (indexes[id] >= p.images.length) indexes[id] = 0;
+
+  document.getElementById(`img-${id}`).src = p.images[indexes[id]];
 }
 
-// Полноэкранный просмотр
-function openViewer(src){document.getElementById("viewer-img").src=src;document.getElementById("viewer").style.display="flex";}
-function closeViewer(){document.getElementById("viewer").style.display="none";}
-
-// Корзина
-function add(id){
-  const p=products.find(x=>x.id===id);
-  const color=document.getElementById(`color-${id}`).value;
-  const size=document.getElementById(`size-${id}`).value;
-  const item=cart.find(i=>i.id===id && i.color===color && i.size===size);
-  if(item)item.qty++; else cart.push({...p,qty:1,color,size});
-  updateCart();
+// КОРЗИНА
+function addToCart(id) {
+  cart.push(products.find(p => p.id === id));
+  renderCart();
 }
 
-// Удалить товар
-function removeItem(index){cart.splice(index,1);updateCart();}
-
-// Обновляем счётчик и список
-function updateCart(){
-  let qty=0,sum=0;
-  cart.forEach(i=>{qty+=i.qty;sum+=i.qty*i.price});
-  document.getElementById("cart-count-bubble").innerText=qty;
-  document.getElementById("cart-total").innerText = `Итого: ${sum} сомони`;
-  updateCartList();
+function toggleCart() {
+  cartEl.style.display = cartEl.style.display==="block"?"none":"block";
 }
 
-// Показать список корзины
-function toggleCartList(){
-  const list=document.getElementById("cart-list");
-  if(list.style.display==="flex") list.style.display="none";
-  else {updateCartList();list.style.display="flex";}
+function renderCart() {
+  const items = document.getElementById("cart-items");
+  items.innerHTML = "";
+
+  let total = 0;
+  cart.forEach(p => {
+    total += p.price;
+    items.innerHTML += `<p>${p.title} — $${p.price}</p>`;
+  });
+
+  document.getElementById("total").innerText = "Итого: $" + total;
 }
 
-// Обновляем список внутри корзины
-function updateCartList(){
-  const container=document.getElementById("cart-items");
-  container.innerHTML="";
-  cart.forEach((i,index)=>{
-    const div=document.createElement("div");
-    div.innerHTML=`<span><b>${i.name}</b> (${i.color}, ${i.size}) x${i.qty} — ${i.price*i.qty} сомони</span>
-    <span class="remove-btn" onclick="removeItem(${index})">✖</span>`;
-    container.appendChild(div);
+function checkout() {
+  const phone = document.getElementById("phone").value;
+  if (!phone) return alert("Введите номер");
+
+  let text = "🛍 Заказ NOZY Store\n\n";
+  cart.forEach(p => text += `${p.title} — $${p.price}\n`);
+  text += `\nТелефон: ${phone}`;
+
+  window.location.href =
+    `https://t.me/ТВОЙ_USERNAME?text=${encodeURIComponent(text)}`;
+}
+
+// FULLSCREEN
+function openViewer(src, images = []) {
+  viewerImages = images;
+  viewerIndex = images.indexOf(src);
+  if (viewerIndex === -1) viewerIndex = 0;
+  updateViewer();
+  viewer.style.display = "flex";
+  startAutoCarousel();
+}
+
+function updateViewer() {
+  viewerImg.style.opacity = 0;
+  setTimeout(() => {
+    viewerImg.src = viewerImages[viewerIndex];
+    viewerImg.style.opacity = 1;
+  }, 150);
+  renderDots();
+}
+
+function renderDots() {
+  viewerDots.innerHTML = "";
+  viewerImages.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.textContent = "●";
+    if (i !== viewerIndex) dot.style.opacity = 0.5;
+    else dot.classList.add("active");
+    viewerDots.appendChild(dot);
   });
 }
 
-// Оформление
-function checkout(){
-  if(cart.length===0){alert("Корзина пуста!");return;}
-  let text="Заказ:%0A";
-  cart.forEach(i=>{text+=`${i.name} (${i.color}, ${i.size}) x${i.qty} — ${i.price*i.qty} сомони%0A`});
-  text+=`Самовывоз: г. Душанбе, мечеть Мехкалонна
-Оплата при получении
-Телефон поддержки: +992901234567`;
-  window.open("https://t.me/AMULEEE?text="+encodeURIComponent(text));
-  window.open("https://wa.me/992973589922?text="+encodeURIComponent(text));
+function closeViewer() {
+  viewer.style.display = "none";
+  stopAutoCarousel();
 }
 
-// Фильтр
-function filter(cat){cat==="all"?render(products):render(products.filter(p=>p.category===cat))}
+// SWIPE IN FULLSCREEN
+viewer.addEventListener("touchstart", e => { viewerStartX = e.touches[0].clientX; stopAutoCarousel(); });
+viewer.addEventListener("touchend", e => {
+  const diff = viewerStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) < 50) return;
 
+  if (diff > 0) viewerIndex++; else viewerIndex--;
+  if (viewerIndex < 0) viewerIndex = viewerImages.length - 1;
+  if (viewerIndex >= viewerImages.length) viewerIndex = 0;
 
+  updateViewer();
+  startAutoCarousel();
+});
 
-
-
-
+// AUTO-CAROUSEL
+function startAutoCarousel() {
+  if (autoCarouselInterval) clearInterval(autoCarouselInterval);
+  autoCarouselInterval = setInterval(() => {
+    viewerIndex = (viewerIndex + 1) % viewerImages.length;
+    updateViewer();
+  }, 4000);
+}
+function stopAutoCarousel() { if (autoCarouselInterval) clearInterval(autoCarouselInterval); }
