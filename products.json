@@ -7,8 +7,8 @@
     "colors": ["Чёрный","Белый","Серый","Синий"],
     "sizes": ["XS","S","M","L","XL","XXL","XXXL"],
     "images": [
-      "https://github.com/alisheryakubov45ist/nozy-shop/blob/1b1a024969ba4720c656873c4be69c6e115f7b3d/images/hoodie-1.jpg",
-      "https://github.com/alisheryakubov45ist/nozy-shop/blob/1b1a024969ba4720c656873c4be69c6e115f7b3d/images/hoodie-12.jpeg"
+      "images/hoodie-1.jpg",
+      "images/hoodie-12.jpeg"
     ]
   },
   {
@@ -19,8 +19,8 @@
     "colors": ["Белый","Чёрный","Синий","Красный"],
     "sizes": ["36","37","38","39","40","41","42","43","44","45","46"],
     "images": [
-      "https://github.com/alisheryakubov45ist/nozy-shop/blob/1b1a024969ba4720c656873c4be69c6e115f7b3d/images/nikeairforce1.jpg",
-      "https://github.com/alisheryakubov45ist/nozy-shop/blob/1b1a024969ba4720c656873c4be69c6e115f7b3d/images/nikeairforce12.jpg"
+      "images/nikeairforce1.jpg",
+      "images/nikeairforce12.jpg"
     ]
   },
   {
@@ -48,6 +48,7 @@
     ]
   }
 ]
+
 
 
 
