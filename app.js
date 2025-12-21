@@ -14,6 +14,7 @@ const viewerImg = document.getElementById("viewer-img");
 const viewerDots = document.getElementById("viewer-dots");
 const cartEl = document.getElementById("cart");
 
+// ЗАГРУЗКА ТОВАРОВ
 fetch("products.json")
   .then(r => r.json())
   .then(data => {
@@ -21,6 +22,7 @@ fetch("products.json")
     render();
   });
 
+// РЕНДЕР ТОВАРОВ
 function render() {
   const box = document.getElementById("products");
   box.innerHTML = "";
@@ -44,7 +46,9 @@ function render() {
   });
 }
 
+// СВАЙП В КАРТОЧКЕ
 function touchStart(e) { startX = e.touches[0].clientX; }
+
 function touchEnd(e, id) {
   const diff = startX - e.changedTouches[0].clientX;
   if (Math.abs(diff) < 50) return;
@@ -74,24 +78,34 @@ function renderCart() {
   items.innerHTML = "";
 
   let total = 0;
-  cart.forEach(p => {
+  cart.forEach((p, i) => {
     total += p.price;
-    items.innerHTML += `<p>${p.title} — $${p.price}</p>`;
+    items.innerHTML += `
+      <p>
+        ${p.title} — $${p.price} 
+        <button onclick="removeFromCart(${i})">✖</button>
+      </p>`;
   });
 
   document.getElementById("total").innerText = "Итого: $" + total;
 }
 
+function removeFromCart(index) {
+  cart.splice(index,1);
+  renderCart();
+}
+
+// ОФОРМЛЕНИЕ ЗАКАЗА
 function checkout() {
   const phone = document.getElementById("phone").value;
-  if (!phone) return alert("Введите номер");
+  if (!phone) return alert("Введите номер телефона");
 
   let text = "🛍 Заказ NOZY Store\n\n";
   cart.forEach(p => text += `${p.title} — $${p.price}\n`);
-  text += `\nТелефон: ${phone}`;
+  text += `\n992973589922: ${phone}`;
 
   window.location.href =
-    `https://t.me/ТВОЙ_USERNAME?text=${encodeURIComponent(text)}`;
+    `https://t.me/AMULEEE?text=${encodeURIComponent(text)}`;
 }
 
 // FULLSCREEN
@@ -129,8 +143,9 @@ function closeViewer() {
   stopAutoCarousel();
 }
 
-// SWIPE IN FULLSCREEN
+// SWIPE В FULLSCREEN
 viewer.addEventListener("touchstart", e => { viewerStartX = e.touches[0].clientX; stopAutoCarousel(); });
+
 viewer.addEventListener("touchend", e => {
   const diff = viewerStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) < 50) return;
@@ -151,4 +166,7 @@ function startAutoCarousel() {
     updateViewer();
   }, 4000);
 }
+
 function stopAutoCarousel() { if (autoCarouselInterval) clearInterval(autoCarouselInterval); }
+
+
