@@ -4,6 +4,7 @@ let currentImages = [];
 let currentIndex = 0;
 let autoSwipe;
 
+// Загрузка товаров из JSON
 fetch("products.json")
   .then(r => r.json())
   .then(data => {
@@ -63,6 +64,7 @@ function renderProducts(list) {
   });
 }
 
+// Автосвайп товаров на карточке
 function startAutoSwipe(id, images) {
   let i = 0;
   setInterval(() => {
@@ -91,11 +93,19 @@ function renderCart() {
   const el = document.getElementById("cart-items");
   el.innerHTML = "";
   let total = 0;
-  cart.forEach(i => {
+  cart.forEach((i, idx) => {
     total += i.price;
-    el.innerHTML += `<p>${i.name} (${i.size}, ${i.color}) – ${i.price} TJS</p>`;
+    el.innerHTML += `
+      <p>${i.name} (${i.size}, ${i.color}) – ${i.price} TJS 
+      <span style="cursor:pointer;color:#ff3b30;" onclick="removeFromCart(${idx})">❌</span></p>`;
   });
   document.getElementById("total").innerText = "Итого: " + total + " TJS";
+}
+
+function removeFromCart(index) {
+  cart.splice(index,1);
+  document.getElementById("cart-count").innerText = cart.length;
+  renderCart();
 }
 
 function toggleCart() {
@@ -159,3 +169,4 @@ function closeAll() {
   closeViewer();
   document.getElementById("overlay").style.display = "none";
 }
+
