@@ -1,175 +1,103 @@
-* {
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+*{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont}
+body{margin:0;background:#0f0f0f;color:#fff}
+
+header{padding:12px;background:#111;text-align:center}
+.logo h1{margin:0;font-size:20px}
+.logo p{margin:0;font-size:12px;color:#aaa}
+.logo small{display:block;font-size:11px;color:#777}
+
+.menu-btn{position:absolute;left:12px;top:12px;font-size:22px}
+
+#categories{display:flex;gap:10px;padding:10px;overflow-x:auto}
+.cat{background:#222;padding:6px 14px;border-radius:20px;font-size:13px}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  padding:14px
 }
 
-body {
-  margin: 0;
-  background: #0f0f0f;
-  color: #fff;
+.card{background:#1a1a1a;border-radius:16px;padding:10px}
+.card img{width:100%;height:190px;object-fit:cover;border-radius:12px}
+.card p{margin:6px 0;font-size:13px}
+.price{font-weight:bold}
+
+select,input{
+  width:100%;
+  margin-top:6px;
+  padding:8px;
+  background:#2a2a2a;
+  color:#fff;
+  border:none;
+  border-radius:8px
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: #111;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+button{
+  width:100%;
+  margin-top:8px;
+  padding:10px;
+  background:#ff8c42;
+  border:none;
+  border-radius:10px;
+  font-weight:bold
 }
 
-.logo h1 {
-  margin: 0;
-  font-size: 20px;
+.cart-float{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff8c42;
+  color:#000;
+  padding:14px;
+  border-radius:50%;
+  font-size:20px;
+  z-index:20
+}
+#cart-count{font-size:12px}
+
+#cart{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#111;
+  padding:16px;
+  display:none;
+  z-index:30
 }
 
-.logo p {
-  margin: 0;
-  font-size: 12px;
-  color: #aaa;
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  z-index:25
 }
 
-.logo span {
-  display: block;
-  font-size: 11px;
-  color: #777;
+/* FULLSCREEN */
+#viewer{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:40
 }
-
-.menu-btn, .cart-btn {
-  font-size: 22px;
-  cursor: pointer;
+.viewer-bg{
+  position:absolute;
+  inset:0;
+  backdrop-filter:blur(20px)
 }
-
-#cart-count {
-  background: #ff8c42;
-  color: #000;
-  padding: 2px 6px;
-  border-radius: 50%;
-  font-size: 12px;
+#viewer-img{
+  max-width:90%;
+  max-height:80%;
+  border-radius:16px;
+  z-index:2
 }
-
-#categories {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  overflow-x: auto;
-}
-
-.cat {
-  padding: 6px 14px;
-  background: #222;
-  border-radius: 20px;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  padding: 14px;
-}
-
-.card {
-  background: #1a1a1a;
-  border-radius: 16px;
-  padding: 10px;
-}
-
-.card img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.card p {
-  margin: 6px 0;
-  font-size: 13px;
-}
-
-.price {
-  font-weight: bold;
-}
-
-select {
-  width: 100%;
-  margin-top: 5px;
-  padding: 6px;
-  background: #2a2a2a;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-}
-
-.btn-cart, button {
-  width: 100%;
-  margin-top: 6px;
-  padding: 10px;
-  background: #ff8c42;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-#cart {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #111;
-  padding: 15px;
-  display: none;
-  z-index: 20;
-}
-
-#overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  display: none;
-  z-index: 15;
-}
-
-#side-menu {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 260px;
-  height: 100%;
-  background: #111;
-  padding: 15px;
-  transition: .3s;
-  z-index: 25;
-}
-
-#viewer {
-  position: fixed;
-  inset: 0;
-  backdrop-filter: blur(20px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 30;
-}
-
-.viewer-content img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 16px;
-}
-
-#viewer-dots {
-  text-align: center;
-  margin-top: 10px;
-}
-#viewer-dots span {
-  color: #555;
-}
-#viewer-dots .active {
-  color: #fff;
-}
+#viewer-dots{text-align:center;margin-top:10px;z-index:2}
+#viewer-dots span{color:#666}
+#viewer-dots .active{color:#fff}
 
 
 
