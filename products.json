@@ -1,55 +1,45 @@
 {
   "categories": ["Одежда", "Обувь", "Платки", "Аксессуары"],
   "products": [
-  {
-    "id": 1,
-    "name": "Oversize Hoodie",
-    "price": 420,
-    "category": "clothes",
-    "colors": ["Чёрный","Белый","Серый","Синий"],
-    "sizes": ["XS","S","M","L","XL","XXL","XXXL"],
-    "images": [
-      "images/hoodie-1.jpg",
-      "images/hoodie-12.jpeg"
-    ]
-  },
-  {
-    "id": 2,
-    "name": "Nike Air Force",
-    "price": 750,
-    "category": "shoes",
-    "colors": ["Белый","Чёрный","Синий","Красный"],
-    "sizes": ["36","37","38","39","40","41","42","43","44","45","46"],
-    "images": [
-      "images/nikeairforce1.jpg",
-      "images/nikeairforce12.jpg"
-    ]
-  },
-  {
-    "id": 3,
-    "name": "Silk Scarf",
-    "price": 180,
-    "category": "scarves",
-    "colors": ["Красный","Чёрный","Белый","Зелёный"],
-    "sizes": ["20x20","30x30","40x40","50x50","60x60","70x70","80x80","90x90"],
-    "images": [
-      "https://images.unsplash.com/photo-1581092580494-3b1e6937e9eb",
-      "https://images.unsplash.com/photo-1572331161851-2c0d0be1aa35"
-    ]
-  },
-  {
-    "id": 4,
-    "name": "Leather Belt",
-    "price": 220,
-    "category": "accessories",
-    "colors": ["Коричневый","Чёрный"],
-    "sizes": ["80","85","90","95","100","105","110"],
-    "images": [
-      "https://images.unsplash.com/photo-1593032465175-8c0f0bbd4cd5",
-      "https://images.unsplash.com/photo-1593032479402-9d1e3c4b8f5e"
-    ]
-  }
-]
+    {
+      "id": 1,
+      "name": "Вечернее платье",
+      "category": "Одежда",
+      "price": 450,
+      "colors": ["Черный", "Бежевый"],
+      "sizes": ["XS","S","M","L","XL","XXL","XXXL"],
+      "images": ["images/dress1-1.jpg","images/dress1-2.jpg"]
+    },
+    {
+      "id": 2,
+      "name": "Туфли Lux",
+      "category": "Обувь",
+      "price": 380,
+      "colors": ["Белый","Черный"],
+      "sizes": ["36","37","38","39","40"],
+      "images": ["images/shoes1-1.jpg","images/shoes1-2.jpg"]
+    },
+    {
+      "id": 3,
+      "name": "Шелковый платок",
+      "category": "Платки",
+      "price": 120,
+      "colors": ["Красный","Бежевый"],
+      "sizes": ["One Size"],
+      "images": ["images/scarf1.jpg","images/scarf2.jpg"]
+    },
+    {
+      "id": 4,
+      "name": "Сумка Mini Lux",
+      "category": "Аксессуары",
+      "price": 260,
+      "colors": ["Черный","Коричневый"],
+      "sizes": ["One Size"],
+      "images": ["images/bag1.jpg","images/bag2.jpg"]
+    }
+  ]
+}
+
 
 
 
