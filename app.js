@@ -3,7 +3,7 @@ let cart = [];
 let currentImages = [];
 let currentIndex = 0;
 
-// Загрузка товаров из JSON
+// Загрузка товаров
 fetch("products.json")
   .then(r => r.json())
   .then(data => {
@@ -60,7 +60,7 @@ function renderProducts(list) {
       </div>
     `;
 
-    // Добавляем точки под фото на главном экране
+    // Точки под фото
     const card = document.getElementById(`img-${p.id}`).parentElement;
     if (p.images.length > 1) {
       const dots = document.createElement("div");
@@ -129,6 +129,7 @@ function sendOrder() {
 
   msg += `\n💰 Итого: ${total} TJS\n📞 ${phone}`;
 
+  // Перекидывает клиента в Telegram с текстом заказа
   window.open("https://t.me/AMULEEE?text=" + encodeURIComponent(msg));
 }
 
