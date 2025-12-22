@@ -8,26 +8,57 @@
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
+  <div class="top-bar">
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <div class="phone">📞 +992 97 358 99 22</div>
+  </div>
+
   <h1 class="logo">NOZY Store</h1>
   <p class="slogan">пространство женского люкса</p>
+
+  <div class="info">
+    <span>🚚 Доставка</span>
+    <span>📍 Самовывоз: г.Душанбе мечеть Мехкалонна</span>
+  </div>
 </header>
 
+<!-- SIDE MENU -->
+<div id="side-menu">
+  <h3>Категории</h3>
+  <div class="side-cat" onclick="filterCat('Одежда')">👗 Одежда</div>
+  <div class="side-cat" onclick="filterCat('Обувь')">👠 Обувь</div>
+  <div class="side-cat" onclick="filterCat('Платки')">🧣 Платки</div>
+  <div class="side-cat" onclick="filterCat('Аксессуары')">👜 Аксессуары</div>
+
+  <h3>Связь</h3>
+  <p>📞 +992 97 358 99 22</p>
+</div>
+
+<!-- TOP CATEGORIES -->
 <div id="categories"></div>
+
+<!-- PRODUCTS -->
 <div class="grid" id="products"></div>
 
-<!-- КОРЗИНА -->
-<div id="cart-btn" onclick="toggleCart()">🛒</div>
+<!-- CART BUTTON -->
+<div id="cart-btn" onclick="toggleCart()">
+  🛒
+  <span id="cart-count">0</span>
+</div>
 
+<!-- CART -->
 <div id="cart">
   <h3>Корзина</h3>
   <div id="cart-items"></div>
   <p id="total">Итого: 0 TJS</p>
+
   <input id="phone" placeholder="Ваш номер телефона">
   <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- FULLSCREEN -->
+<!-- VIEWER -->
 <div id="viewer">
   <div id="viewer-blur" onclick="closeViewer()"></div>
   <img id="viewer-img">
@@ -37,7 +68,4 @@
 <script src="app.js"></script>
 </body>
 </html>
-
-
-
 
