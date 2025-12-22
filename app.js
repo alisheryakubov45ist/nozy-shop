@@ -3,17 +3,16 @@ let cart = [];
 let currentImages = [];
 let currentIndex = 0;
 
-// Для свайпа на карточках
-let mainStartX = 0;
-
+// Загрузка данных
 fetch("products.json")
   .then(r => r.json())
-  .then(data => { 
-      products = data.products; 
-      renderProducts(products); 
+  .then(data => {
+    products = data.products;
+    renderProducts(products);
   });
 
-function renderProducts(list){
+// Рендер товаров
+function renderProducts(list) {
   const el = document.getElementById("products");
   el.innerHTML = "";
 
@@ -23,39 +22,37 @@ function renderProducts(list){
 
     const img = document.createElement("img");
     img.src = p.images[0];
-    img.dataset.index = 0; // текущий индекс фото
+    img.dataset.index = 0;
     img.dataset.id = p.id;
 
-    // Клик для fullscreen
+    // Клик по фото — fullscreen
     img.addEventListener("click", () => openViewer(p.images));
 
     // Свайп на главном экране
-    img.addEventListener("touchstart", e => { mainStartX = e.touches[0].clientX; });
+    let startX = 0;
+    img.addEventListener("touchstart", e => startX = e.touches[0].clientX);
     img.addEventListener("touchend", e => {
-        const endX = e.changedTouches[0].clientX;
-        let idx = parseInt(img.dataset.index);
-        if(endX - mainStartX > 50){ // свайп вправо
-            idx = (idx - 1 + p.images.length) % p.images.length;
-        } else if(mainStartX - endX > 50){ // свайп влево
-            idx = (idx + 1) % p.images.length;
-        }
-        img.dataset.index = idx;
-        img.src = p.images[idx];
+      const endX = e.changedTouches[0].clientX;
+      let idx = parseInt(img.dataset.index);
+      if(endX - startX > 50) idx = (idx - 1 + p.images.length) % p.images.length;
+      else if(startX - endX > 50) idx = (idx + 1) % p.images.length;
+      img.dataset.index = idx;
+      img.src = p.images[idx];
     });
 
     const h4 = document.createElement("h4"); h4.innerText = p.name;
     const price = document.createElement("p"); price.innerText = `${p.price} TJS`;
 
-    const colorSelect = document.createElement("select"); colorSelect.id = "c"+p.id;
-    p.colors.forEach(c => colorSelect.add(new Option(c,c)));
+    const colorSelect = document.createElement("select"); colorSelect.id = "c" + p.id;
+    p.colors.forEach(c => colorSelect.add(new Option(c, c)));
 
-    const sizeSelect = document.createElement("select"); sizeSelect.id = "s"+p.id;
-    p.sizes.forEach(s => sizeSelect.add(new Option(s,s)));
+    const sizeSelect = document.createElement("select"); sizeSelect.id = "s" + p.id;
+    p.sizes.forEach(s => sizeSelect.add(new Option(s, s)));
 
-    const btn = document.createElement("button"); btn.className="btn-cart"; btn.innerText="В корзину";
-    btn.addEventListener("click", ()=>addToCart(p.id));
+    const btn = document.createElement("button"); btn.className = "btn-cart"; btn.innerText = "В корзину";
+    btn.addEventListener("click", () => addToCart(p.id));
 
-    card.append(img,h4,price,colorSelect,sizeSelect,btn);
+    card.append(img, h4, price, colorSelect, sizeSelect, btn);
     el.appendChild(card);
   });
 }
@@ -99,7 +96,6 @@ function sendOrder(){
 }
 
 // FULLSCREEN VIEWER
-let startX=0;
 function openViewer(images){
   closeAll();
   currentImages = images;
@@ -109,11 +105,12 @@ function openViewer(images){
   document.getElementById("overlay").style.display="block";
 
   const img = document.getElementById("viewer-img");
-  img.addEventListener("touchstart", e=>{ startX = e.touches[0].clientX; });
-  img.addEventListener("touchend", e=>{
+  let startX = 0;
+  img.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  img.addEventListener("touchend", e => {
       const endX = e.changedTouches[0].clientX;
-      if(endX-startX>50){ prevImage(); } 
-      else if(startX-endX>50){ nextImage(); }
+      if(endX - startX > 50) prevImage();
+      else if(startX - endX > 50) nextImage();
   });
 }
 
