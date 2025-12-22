@@ -12,16 +12,19 @@ fetch("products.json")
     renderProducts(products);
   });
 
+// ----- MENU -----
 function toggleMenu() {
-  const m = document.getElementById("side-menu");
-  m.style.left = m.style.left === "0px" ? "-260px" : "0px";
+  closeAll();
+  document.getElementById("side-menu").style.left = "0px";
+  document.getElementById("overlay").style.display = "block";
 }
 
 function filterCat(cat) {
   renderProducts(products.filter(p => p.category === cat));
-  toggleMenu();
+  closeAll();
 }
 
+// ----- CATEGORIES -----
 function renderCategories(cats) {
   const el = document.getElementById("categories");
   el.innerHTML = "";
@@ -34,6 +37,7 @@ function renderCategories(cats) {
   });
 }
 
+// ----- PRODUCTS -----
 function renderProducts(list) {
   const el = document.getElementById("products");
   el.innerHTML = "";
@@ -70,6 +74,7 @@ function startAutoSwipe(id, images) {
   }, 2500);
 }
 
+// ----- CART -----
 function addToCart(id) {
   const p = products.find(x => x.id === id);
   cart.push({
@@ -94,10 +99,12 @@ function renderCart() {
 }
 
 function toggleCart() {
-  const c = document.getElementById("cart");
-  c.style.display = c.style.display === "block" ? "none" : "block";
+  closeAll();
+  document.getElementById("cart").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
 }
 
+// ----- ORDER -----
 function sendOrder() {
   const phone = document.getElementById("phone").value;
   if (!phone) { alert("Введите номер телефона"); return; }
@@ -115,7 +122,11 @@ function sendOrder() {
   window.open("https://t.me/AMULEEE?text=" + encodeURIComponent(msg));
 }
 
+// ----- FULLSCREEN VIEWER -----
 function openViewer(images) {
+  closeAll();
+  document.getElementById("overlay").style.display = "block";
+
   currentImages = images;
   currentIndex = 0;
   showImage();
@@ -139,4 +150,12 @@ function showImage() {
 function closeViewer() {
   document.getElementById("viewer").style.display = "none";
   clearInterval(autoSwipe);
+}
+
+// ----- CLOSE ALL -----
+function closeAll() {
+  document.getElementById("cart").style.display = "none";
+  document.getElementById("side-menu").style.left = "-260px";
+  closeViewer();
+  document.getElementById("overlay").style.display = "none";
 }
