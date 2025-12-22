@@ -3,7 +3,7 @@ let cart = [];
 let currentImages = [];
 let currentIndex = 0;
 
-// Загрузка данных
+// ЗАГРУЗКА
 fetch("products.json")
   .then(r => r.json())
   .then(data => {
@@ -20,72 +20,93 @@ function renderCategories(cats){
     const d = document.createElement("div");
     d.className = "cat";
     d.innerText = c;
-    d.onclick = () => filterCat(c);
+    d.onclick = () => renderProducts(products.filter(p => p.category === c));
     el.appendChild(d);
   });
 }
 
-function filterCat(cat){
-  renderProducts(products.filter(p => p.category === cat));
-  closeAll();
-}
-
-// ПРОДУКТЫ
+// ПРОДУКТЫ + СВАЙП
 function renderProducts(list){
   const el = document.getElementById("products");
   el.innerHTML = "";
+
   list.forEach(p => {
     const card = document.createElement("div");
     card.className = "card";
 
+    const slider = document.createElement("div");
+    slider.className = "slider";
+
+    let index = 0;
+    let startX = 0;
+
     const img = document.createElement("img");
-    img.src = p.images[0];
-    img.style.cursor = "pointer";
-    img.addEventListener("click", () => openViewer(p.images));
+    img.src = p.images[index];
 
-    const h4 = document.createElement("h4");
-    h4.innerText = p.name;
-
-    const price = document.createElement("p");
-    price.innerText = `${p.price} TJS`;
-
-    const colorSelect = document.createElement("select");
-    colorSelect.id = "c" + p.id;
-    p.colors.forEach(c => {
-      const opt = document.createElement("option");
-      opt.value = c;
-      opt.text = c;
-      colorSelect.add(opt);
+    img.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
     });
 
-    const sizeSelect = document.createElement("select");
-    sizeSelect.id = "s" + p.id;
-    p.sizes.forEach(s => {
-      const opt = document.createElement("option");
-      opt.value = s;
-      opt.text = s;
-      sizeSelect.add(opt);
+    img.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0].clientX;
+      if(startX - endX > 40) index = (index + 1) % p.images.length;
+      if(endX - startX > 40) index = (index - 1 + p.images.length) % p.images.length;
+      img.src = p.images[index];
+      updateDots();
+    });
+
+    img.onclick = () => openViewer(p.images);
+
+    const dots = document.createElement("div");
+    dots.className = "dots";
+
+    function updateDots(){
+      dots.innerHTML = "";
+      p.images.forEach((_, i)=>{
+        const s = document.createElement("span");
+        if(i === index) s.className = "active";
+        dots.appendChild(s);
+      });
+    }
+    updateDots();
+
+    slider.append(img, dots);
+
+    const title = document.createElement("h4");
+    title.innerText = p.name;
+
+    const price = document.createElement("p");
+    price.innerText = p.price + " TJS";
+
+    const color = document.createElement("select");
+    color.id = "c" + p.id;
+    p.colors.forEach(c=>{
+      const o = document.createElement("option");
+      o.value = c; o.text = c;
+      color.appendChild(o);
+    });
+
+    const size = document.createElement("select");
+    size.id = "s" + p.id;
+    p.sizes.forEach(s=>{
+      const o = document.createElement("option");
+      o.value = s; o.text = s;
+      size.appendChild(o);
     });
 
     const btn = document.createElement("button");
     btn.className = "btn-cart";
     btn.innerText = "В корзину";
-    btn.addEventListener("click", () => addToCart(p.id));
+    btn.onclick = () => addToCart(p.id);
 
-    card.appendChild(img);
-    card.appendChild(h4);
-    card.appendChild(price);
-    card.appendChild(colorSelect);
-    card.appendChild(sizeSelect);
-    card.appendChild(btn);
-
+    card.append(slider, title, price, color, size, btn);
     el.appendChild(card);
   });
 }
 
 // КОРЗИНА
 function addToCart(id){
-  const p = products.find(x => x.id === id);
+  const p = products.find(x=>x.id===id);
   cart.push({
     name: p.name,
     price: p.price,
@@ -100,92 +121,71 @@ function renderCart(){
   const el = document.getElementById("cart-items");
   el.innerHTML = "";
   let total = 0;
-  cart.forEach((i, idx) => {
+  cart.forEach(i=>{
     total += i.price;
-    el.innerHTML += `<p>${i.name} (${i.size}, ${i.color}) – ${i.price} TJS <span style="cursor:pointer;color:#ff3b30;" onclick="removeFromCart(${idx})">❌</span></p>`;
+    el.innerHTML += `<p>${i.name} (${i.size}, ${i.color}) – ${i.price} TJS</p>`;
   });
-  document.getElementById("total").innerText = "Итого: "+total+" TJS";
-}
-
-function removeFromCart(index){
-  cart.splice(index,1);
-  document.getElementById("cart-count").innerText = cart.length;
-  renderCart();
+  document.getElementById("total").innerText = "Итого: " + total + " TJS";
 }
 
 function toggleCart(){
-  closeAll(); 
-  document.getElementById("cart").style.display="block"; 
+  document.getElementById("cart").style.display="block";
   document.getElementById("overlay").style.display="block";
 }
 
-// ОФОРМЛЕНИЕ ЗАКАЗА
+// ОФОРМЛЕНИЕ
 function sendOrder(){
   const phone = document.getElementById("phone").value;
   const delivery = document.getElementById("delivery").value;
-  if(!phone){ alert("Введите номер телефона"); return; }
+  if(!phone || !delivery){ alert("Введите данные"); return; }
+
   let msg = "🛍 ЗАКАЗ NOZY Store\n\n";
-  let total = 0;
-  cart.forEach(i => {
+  cart.forEach(i=>{
     msg += `${i.name} | ${i.size} | ${i.color} | ${i.price} TJS\n`;
-    total += i.price;
   });
-  msg += `\n💰 Итого: ${total} TJS\n📞 ${phone}\n🚚 ${delivery}`;
+  msg += `\n📞 ${phone}\n🚚 ${delivery}`;
+
   window.open("https://t.me/AMULEEE?text="+encodeURIComponent(msg));
 }
 
-// FULLSCREEN VIEWER
+// FULLSCREEN + СВАЙП
 function openViewer(images){
-  closeAll();
   currentImages = images;
   currentIndex = 0;
   showImage();
-  document.getElementById("viewer").style.display = "flex";
-  document.getElementById("overlay").style.display = "block";
+  document.getElementById("viewer").style.display="flex";
+  document.getElementById("overlay").style.display="block";
+
+  let startX = 0;
+  const img = document.getElementById("viewer-img");
+
+  img.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  img.addEventListener("touchend", e => {
+    const endX = e.changedTouches[0].clientX;
+    if(startX - endX > 40) currentIndex = (currentIndex + 1) % currentImages.length;
+    if(endX - startX > 40) currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    showImage();
+  });
 }
 
-function openViewer(id){
-  const p = products.find(x=>x.id===id);
-  currentImages = p.images;
-  currentIndex = 0;
-  document.getElementById('viewer-img').src = currentImages[0];
-  document.getElementById('viewer').style.display='flex';
+function showImage(){
+  document.getElementById("viewer-img").src = currentImages[currentIndex];
+  const d = document.getElementById("viewer-dots");
+  d.innerHTML="";
+  currentImages.forEach((_,i)=>{
+    const s = document.createElement("span");
+    if(i===currentIndex) s.className="active";
+    d.appendChild(s);
+  });
 }
 
-function closeViewer(e){
-  if(e.target.id==='viewer'){
-    document.getElementById('viewer').style.display='none';
-  }
-}
-
-function nextImage(e){
-  e.stopPropagation();
-  currentIndex = (currentIndex+1)%currentImages.length;
-  document.getElementById('viewer-img').src = currentImages[currentIndex];
-}
-
-function prevImage(e){
-  e.stopPropagation();
-  currentIndex = (currentIndex-1+currentImages.length)%currentImages.length;
-  document.getElementById('viewer-img').src = currentImages[currentIndex];
-
-function closeViewer(){
-  document.getElementById("viewer").style.display="none";
-}
-
-// ОТКРЫТИЯ/ЗАКРЫТИЯ МЕНЮ, КОРЗИНЫ, OVERLAY
 function closeAll(){
   document.getElementById("cart").style.display="none";
-  document.getElementById("side-menu").style.left="-260px";
-  closeViewer();
+  document.getElementById("viewer").style.display="none";
   document.getElementById("overlay").style.display="none";
 }
 
-function toggleMenu(){
-  closeAll(); 
-  document.getElementById("side-menu").style.left="0px"; 
-  document.getElementById("overlay").style.display="block";
-}
+
 
 
 
