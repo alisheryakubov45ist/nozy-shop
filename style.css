@@ -48,6 +48,15 @@ header {
   to {opacity:1;}
 }
 
+/* Overlay */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 9;
+  display: none;
+}
+
 /* SIDE MENU */
 #side-menu {
   position: fixed;
