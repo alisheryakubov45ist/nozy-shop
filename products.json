@@ -8,7 +8,8 @@
       "price": 150,
       "colors": ["Черный", "Бежевый"],
       "sizes": ["XS","S","M","L","XL","XXL","XXXL"],
-      "images": ["images/hoodie-1.jpg","images/hoodie-12.jpeg"]
+      "images": ["images/hoodie-1.jpg",
+      "images/hoodie-12.jpeg"]
     },
     {
       "id": 2,
@@ -39,6 +40,7 @@
     }
   ]
 }
+
 
 
 
