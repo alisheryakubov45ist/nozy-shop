@@ -1,42 +1,76 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #fffaf5;
+  font-family: system-ui;
+  background: #0f0f0f;
+  color: #fff;
 }
 
 .header {
+  padding: 15px;
   text-align: center;
-  padding: 20px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.burger {
+  position: absolute;
+  left: 0;
+  background: none;
+  color: #fff;
+  font-size: 22px;
+  border: none;
 }
 
 .logo {
   font-size: 26px;
-  font-weight: 600;
 }
 
 .slogan {
   font-size: 14px;
-  color: #777;
+  opacity: 0.8;
 }
 
-.phone {
-  font-size: 13px;
+.delivery-text {
+  font-size: 12px;
+  opacity: 0.7;
 }
 
-.categories {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 10px;
+.menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 240px;
+  height: 100%;
+  background: #1a1a1a;
+  padding: 15px;
+  transition: 0.3s;
+  z-index: 20;
 }
 
-.cat {
-  background: #ff8c42;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 20px;
+.menu.active {
+  left: 0;
+}
+
+.menu-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.menu-phone {
+  margin-top: 20px;
+}
+
+.categories .cat {
+  background: #2a2a2a;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  white-space: nowrap;
 }
 
 .products {
@@ -47,13 +81,9 @@ body {
 }
 
 .card {
-  background: white;
+  background: #1b1b1b;
   border-radius: 14px;
   padding: 10px;
-}
-
-.slider {
-  overflow: hidden;
 }
 
 .slider img {
@@ -61,15 +91,10 @@ body {
   border-radius: 12px;
 }
 
-.dots {
-  text-align: center;
-  margin-top: 6px;
-}
-
 .dots span {
   width: 6px;
   height: 6px;
-  background: #ccc;
+  background: #555;
   border-radius: 50%;
   display: inline-block;
   margin: 2px;
@@ -79,11 +104,21 @@ body {
   background: #ff8c42;
 }
 
+select, input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  background: #2a2a2a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
 .btn-cart {
   width: 100%;
   padding: 10px;
   background: #ff8c42;
-  color: white;
+  color: black;
   border: none;
   border-radius: 10px;
   margin-top: 6px;
@@ -94,10 +129,9 @@ body {
   right: 20px;
   bottom: 20px;
   background: #ff8c42;
-  color: white;
   padding: 14px;
   border-radius: 50%;
-  z-index: 10;
+  color: black;
 }
 
 .cart {
@@ -105,23 +139,16 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: white;
+  background: #111;
   padding: 15px;
   display: none;
-  z-index: 20;
-}
-
-.cart input, .cart select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
+  z-index: 25;
 }
 
 .order-btn {
   width: 100%;
   padding: 12px;
   background: #ff8c42;
-  color: white;
   border: none;
   margin-top: 10px;
 }
@@ -129,7 +156,7 @@ body {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.6);
   display: none;
   z-index: 15;
 }
@@ -137,7 +164,7 @@ body {
 .viewer {
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
   display: none;
   justify-content: center;
   align-items: center;
