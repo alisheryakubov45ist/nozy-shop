@@ -7,41 +7,19 @@ fetch("products.json")
   .then(r => r.json())
   .then(data => {
     products = data.products;
-    data.categories.unshift("Все"); // добавляем категорию Все
-    renderCategories(data.categories);
     renderProducts(products);
   });
-
-function renderCategories(cats){
-  const el = document.getElementById("categories");
-  el.innerHTML = "";
-  cats.forEach(c => {
-    const d = document.createElement("div");
-    d.className = "cat";
-    d.innerText = c;
-    d.onclick = () => filterCat(c);
-    el.appendChild(d);
-  });
-}
-
-function filterCat(cat){
-  if(cat==="Все") renderProducts(products);
-  else renderProducts(products.filter(p=>p.category===cat));
-  closeAll();
-  document.querySelectorAll(".cat").forEach(el=>el.classList.remove("active"));
-  Array.from(document.querySelectorAll(".cat")).find(el=>el.innerText===cat).classList.add("active");
-}
 
 function renderProducts(list){
   const el = document.getElementById("products");
   el.innerHTML = "";
-  list.forEach(p=>{
+  list.forEach(p => {
     const card = document.createElement("div");
-    card.className="card";
+    card.className = "card";
 
     const img = document.createElement("img");
     img.src = p.images[0];
-    img.addEventListener("click", ()=>openViewer(p.images));
+    img.addEventListener("click", () => openViewer(p.images));
 
     const h4 = document.createElement("h4");
     h4.innerText = p.name;
@@ -50,46 +28,27 @@ function renderProducts(list){
     price.innerText = `${p.price} TJS`;
 
     const colorSelect = document.createElement("select");
-    colorSelect.id="c"+p.id;
-    p.colors.forEach(c=>{
-      const opt = document.createElement("option");
-      opt.value=c; opt.text=c;
-      colorSelect.add(opt);
-    });
+    colorSelect.id = "c" + p.id;
+    p.colors.forEach(c => { const opt = new Option(c,c); colorSelect.add(opt); });
 
     const sizeSelect = document.createElement("select");
-    sizeSelect.id="s"+p.id;
-    p.sizes.forEach(s=>{
-      const opt = document.createElement("option");
-      opt.value=s; opt.text=s;
-      sizeSelect.add(opt);
-    });
+    sizeSelect.id = "s" + p.id;
+    p.sizes.forEach(s => { const opt = new Option(s,s); sizeSelect.add(opt); });
 
     const btn = document.createElement("button");
-    btn.className="btn-cart";
-    btn.innerText="В корзину";
-    btn.addEventListener("click", ()=>addToCart(p.id));
+    btn.className = "btn-cart";
+    btn.innerText = "В корзину";
+    btn.addEventListener("click", () => addToCart(p.id));
 
-    card.appendChild(img);
-    card.appendChild(h4);
-    card.appendChild(price);
-    card.appendChild(colorSelect);
-    card.appendChild(sizeSelect);
-    card.appendChild(btn);
-
+    card.append(img,h4,price,colorSelect,sizeSelect,btn);
     el.appendChild(card);
   });
 }
 
 function addToCart(id){
-  const p=products.find(x=>x.id===id);
-  cart.push({
-    name:p.name,
-    price:p.price,
-    color:document.getElementById("c"+id).value,
-    size:document.getElementById("s"+id).value
-  });
-  document.getElementById("cart-count").innerText=cart.length;
+  const p = products.find(x => x.id===id);
+  cart.push({ name:p.name, price:p.price, color:document.getElementById("c"+id).value, size:document.getElementById("s"+id).value });
+  document.getElementById("cart-count").innerText = cart.length;
   renderCart();
 }
 
@@ -104,28 +63,17 @@ function renderCart(){
   document.getElementById("total").innerText="Итого: "+total+" TJS";
 }
 
-function removeFromCart(index){
-  cart.splice(index,1);
-  document.getElementById("cart-count").innerText=cart.length;
-  renderCart();
-}
+function removeFromCart(idx){ cart.splice(idx,1); document.getElementById("cart-count").innerText=cart.length; renderCart(); }
 
-function toggleCart(){
-  closeAll();
-  document.getElementById("cart").style.display="block";
-  document.getElementById("overlay").style.display="block";
-}
+function toggleCart(){ closeAll(); document.getElementById("cart").style.display="block"; document.getElementById("overlay").style.display="block"; }
 
 function sendOrder(){
   const phone=document.getElementById("phone").value;
   const delivery=document.getElementById("delivery").value;
-  if(!phone){alert("Введите номер телефона"); return;}
+  if(!phone){ alert("Введите номер телефона"); return; }
   let msg="🛍 ЗАКАЗ NOZY Store\n\n";
   let total=0;
-  cart.forEach(i=>{
-    msg+=`${i.name} | ${i.size} | ${i.color} | ${i.price} TJS\n`;
-    total+=i.price;
-  });
+  cart.forEach(i=>{ msg+=`${i.name} | ${i.size} | ${i.color} | ${i.price} TJS\n`; total+=i.price; });
   msg+=`\n💰 Итого: ${total} TJS\n📞 ${phone}\n🚚 ${delivery}`;
   window.open("https://t.me/AMULEEE?text="+encodeURIComponent(msg));
 }
@@ -144,20 +92,15 @@ function showImage(){
   document.getElementById("viewer-img").src=currentImages[currentIndex];
   const dots=document.getElementById("viewer-dots");
   dots.innerHTML="";
-  currentImages.forEach((_,i)=>{
-    dots.innerHTML+=`<span class="${i===currentIndex?'active':''}">●</span>`;
-  });
+  currentImages.forEach((_,i)=>{ dots.innerHTML+=`<span class="${i===currentIndex?'active':''}">●</span>`; });
 }
 
-function closeViewer(){
-  document.getElementById("viewer").style.display="none";
-}
+function closeViewer(){ document.getElementById("viewer").style.display="none"; }
 
-function closeAll(){
-  document.getElementById("cart").style.display="none";
-  closeViewer();
-  document.getElementById("overlay").style.display="none";
-}
+function nextImage(){ if(currentImages.length===0) return; currentIndex=(currentIndex+1)%currentImages.length; showImage(); }
+function prevImage(){ if(currentImages.length===0) return; currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; showImage(); }
+
+function closeAll(){ document.getElementById("cart").style.display="none"; closeViewer(); document.getElementById("overlay").style.display="none"; }
 
 
 
