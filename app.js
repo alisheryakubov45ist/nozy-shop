@@ -112,5 +112,3 @@ function closeAll(){
   closeViewer();
   document.getElementById("overlay").style.display="none";
 }
-
-
