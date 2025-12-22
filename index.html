@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOZY Store</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>NOZY Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="loader"><div class="spinner"></div></div>
-
-<header class="top">
-  <div class="branding">
-    <h1>NOZY Store</h1>
-    <p>Пространство женского люкса</p>
-    <p>☎ Поддержка: +992973589922</p>
-  </div>
-  <div class="categories">
-    <button onclick="filter('all')">Все</button>
-    <button onclick="filter('clothes')">Одежда</button>
-    <button onclick="filter('scarves')">Платки</button>
-    <button onclick="filter('shoes')">Обувь</button>
-    <button onclick="filter('accessories')">Аксессуары</button>
-  </div>
+<header>
+  <h1 class="logo">NOZY Store</h1>
+  <p class="slogan">пространство женского люкса</p>
 </header>
 
-<main id="products" class="grid"></main>
+<div id="categories"></div>
+<div class="grid" id="products"></div>
 
-<!-- Круглый значок корзины -->
-<div id="cart-btn" onclick="toggleCartList()">
-  🛒<span id="cart-count-bubble">0</span>
-</div>
+<!-- КОРЗИНА -->
+<div id="cart-btn" onclick="toggleCart()">🛒</div>
 
-<!-- Список товаров в корзине -->
-<div id="cart-list">
+<div id="cart">
   <h3>Корзина</h3>
   <div id="cart-items"></div>
-  <p id="cart-total">Итого: 0 сомони</p>
-  <button onclick="checkout()">Оформить заказ</button>
+  <p id="total">Итого: 0 TJS</p>
+  <input id="phone" placeholder="Ваш номер телефона">
+  <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- Полноэкранный просмотр -->
-<div id="viewer" onclick="closeViewer()">
-  <div id="viewer-blur"></div>
+<!-- FULLSCREEN -->
+<div id="viewer">
+  <div id="viewer-blur" onclick="closeViewer()"></div>
   <img id="viewer-img">
   <div id="viewer-dots"></div>
 </div>
@@ -51,5 +37,7 @@
 <script src="app.js"></script>
 </body>
 </html>
+
+
 
 
