@@ -1,12 +1,13 @@
 {
   "categories": ["Одежда","Обувь","Платки","Аксессуары"],
   "products":[
-    {"id":1,"name":"Вечернее платье","category":"Одежда","price":450,"colors":["Черный","Бежевый"],"sizes":["XS","S","M","L","XL","XXL","XXXL"],"images":["images/dress1-1.jpg","images/dress1-2.jpg"]},
-    {"id":2,"name":"Туфли Lux","category":"Обувь","price":380,"colors":["Белый","Черный"],"sizes":["36","37","38","39","40"],"images":["images/shoes1-1.jpg","images/shoes1-2.jpg"]},
+    {"id":1,"name":"Худи женское","category":"Одежда","price":450,"colors":["Черный","Бежевый"],"sizes":["XS","S","M","L","XL","XXL","XXXL"],"images":["images/hoodie-1.jpg","images/hoodie-12.jpeg"]},
+    {"id":2,"name":"Кроссовки NIKE","category":"Обувь","price":380,"colors":["Белый","Черный"],"sizes":["36","37","38","39","40"],"images":["images/nikeairforce1.jpg","images/nikeairforce12.jpg"]},
     {"id":3,"name":"Шелковый платок","category":"Платки","price":120,"colors":["Красный","Бежевый"],"sizes":["One Size"],"images":["images/scarf1.jpg","images/scarf2.jpg"]},
     {"id":4,"name":"Сумка Mini Lux","category":"Аксессуары","price":260,"colors":["Черный","Коричневый"],"sizes":["One Size"],"images":["images/bag1.jpg","images/bag2.jpg"]}
   ]
 }
+
 
 
 
