@@ -3,68 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOZY Store</title>
+<title>NOZY Store — пространство женского люкса</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="header">
+    <h1>NOZY Store</h1>
+    <p>пространство женского люкса</p>
+    <div id="cart-icon" onclick="toggleCart()">
+        🛒 <span id="cart-count">0</span>
+    </div>
+</div>
+
+<div id="categories"></div>
+
+<div id="products"></div>
+
+<div id="cart">
+    <h3>Корзина</h3>
+    <div id="cart-items"></div>
+    <p id="total">Итого: 0 TJS</p>
+    <input type="text" id="phone" placeholder="Ваш номер телефона">
+    <select id="delivery">
+        <option value="Самовывоз г.Душанбе">Самовывоз г.Душанбе</option>
+        <option value="Доставка г.Душанбе">Доставка г.Душанбе</option>
+        <option value="Доставка г.Истаравшан">Доставка г.Истаравшан</option>
+    </select>
+    <button onclick="sendOrder()" class="btn-cart">Оформить заказ</button>
+</div>
 
 <div id="overlay" onclick="closeAll()"></div>
 
-<header>
-  <!-- Кнопка 3 полоски -->
-  <div id="menu-button" onclick="toggleMenu()">☰</div>
-  <div class="contact-number">📞 +992973589922</div>
-
-  <div class="logo">
-    <h1>NOZY store</h1>
-    <p>пространство женского люкса</p>
-    <small>📍 Самовывоз: Душанбе</small>
-    <small>🚚 Доставка: Душанбе / Истаравшан</small>
-  </div>
-</header>
-
-<!-- Сайд-меню с категориями -->
-<div id="side-menu">
-  <h3>Категории</h3>
-  <div id="categories" class="categories"></div>
-</div>
-
-<!-- ТОВАРЫ -->
-<div id="products" class="products"></div>
-
-<!-- КОРЗИНА В ВЕРХНЕМ ПРАВОМ УГЛУ -->
-<div class="cart-float-top" onclick="toggleCart()">
-  🛒 <span id="cart-count">0</span>
-</div>
-
-<!-- КОРЗИНА -->
-<div id="cart">
-  <h3>Корзина</h3>
-  <div id="cart-items"></div>
-  <p id="total"></p>
-
-  <input id="phone" placeholder="Ваш номер телефона">
-
-  <select id="delivery">
-    <option value="Самовывоз">Самовывоз</option>
-    <option value="Доставка">Доставка</option>
-  </select>
-
-  <button onclick="sendOrder()">Оформить заказ</button>
-</div>
-
-<!-- FULLSCREEN VIEWER -->
-<div id="viewer">
-  <div class="viewer-bg" onclick="closeViewer()"></div>
-  <img id="viewer-img">
-  <div id="viewer-dots"></div>
+<!-- Fullscreen Viewer -->
+<div id="viewer" onclick="closeViewer()">
+    <img id="viewer-img">
+    <div id="viewer-dots"></div>
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
-
-
 
 
 
