@@ -1,4 +1,4 @@
-let products=[],cart=[],startX=0,viewerIndex=0,viewerImages=[];
+let products=[],cart=[],startX=0,currentIndex=0,currentImages=[],activeCategory="";
 
 fetch("products.json")
 .then(r=>r.json())
@@ -15,21 +15,22 @@ function renderCategories(cats){
     const d=document.createElement("div");
     d.className="cat";
     d.innerText=c;
-    d.onclick=()=>renderProducts(products.filter(p=>p.category===c));
+    d.onclick=()=>{
+      activeCategory=c;
+      highlightCategory();
+      renderProducts(products.filter(p=>p.category===c));
+      closeAll();
+    };
     el.appendChild(d);
   });
+  highlightCategory();
 }
 
-function toggleMenu(){
-  const menu=document.getElementById("side-menu");
-  const overlay=document.getElementById("overlay");
-  if(menu.style.left==="0px"){
-    menu.style.left="-260px";
-    overlay.style.display="none";
-  }else{
-    menu.style.left="0px";
-    overlay.style.display="block";
-  }
+function highlightCategory(){
+  document.querySelectorAll(".cat").forEach(el=>{
+    if(el.innerText===activeCategory) el.classList.add("active");
+    else el.classList.remove("active");
+  });
 }
 
 function renderProducts(list){
@@ -97,7 +98,6 @@ function closeAll(){
   document.getElementById("cart").style.display="none";
   document.getElementById("overlay").style.display="none";
   closeViewer();
-  document.getElementById("side-menu").style.left="-260px";
 }
 
 function sendOrder(){
@@ -112,8 +112,8 @@ function sendOrder(){
 }
 
 function openViewer(imgs){
-  viewerImages=imgs;
-  viewerIndex=0;
+  currentImages=imgs;
+  currentIndex=0;
   document.getElementById("viewer-img").src=imgs[0];
   renderDots();
   document.getElementById("viewer").style.display="flex";
@@ -122,8 +122,8 @@ function openViewer(imgs){
 function renderDots(){
   const d=document.getElementById("viewer-dots");
   d.innerHTML="";
-  viewerImages.forEach((_,i)=>{
-    d.innerHTML+=`<span class="${i===viewerIndex?'active':''}">●</span>`;
+  currentImages.forEach((_,i)=>{
+    d.innerHTML+=`<span class="${i===currentIndex?'active':''}">●</span>`;
   });
 }
 
@@ -132,10 +132,14 @@ document.getElementById("viewer-img").addEventListener("touchstart",e=>{
 });
 document.getElementById("viewer-img").addEventListener("touchend",e=>{
   const dx=e.changedTouches[0].clientX-startX;
-  if(dx<-40) viewerIndex=(viewerIndex+1)%viewerImages.length;
-  if(dx>40) viewerIndex=(viewerIndex-1+viewerImages.length)%viewerImages.length;
-  document.getElementById("viewer-img").src=viewerImages[viewerIndex];
+  if(dx<-40) currentIndex=(currentIndex+1)%currentImages.length;
+  if(dx>40) currentIndex=(currentIndex-1+currentImages.length)%currentImages.length;
+  document.getElementById("viewer-img").src=currentImages[currentIndex];
   renderDots();
+});
+
+document.getElementById("viewer").addEventListener("click",e=>{
+  if(e.target.id==="viewer") closeViewer();
 });
 
 function closeViewer(){
