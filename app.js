@@ -40,6 +40,7 @@ function renderProducts(list){
 
     const img = document.createElement("img");
     img.src = p.images[0];
+    img.style.cursor = "pointer";
     img.addEventListener("click", () => openViewer(p.images));
 
     const h4 = document.createElement("h4");
@@ -112,7 +113,11 @@ function removeFromCart(index){
   renderCart();
 }
 
-function toggleCart(){closeAll(); document.getElementById("cart").style.display="block"; document.getElementById("overlay").style.display="block";}
+function toggleCart(){
+  closeAll(); 
+  document.getElementById("cart").style.display="block"; 
+  document.getElementById("overlay").style.display="block";
+}
 
 // ОФОРМЛЕНИЕ ЗАКАЗА
 function sendOrder(){
@@ -160,7 +165,9 @@ function nextImage(){
   showImage();
 }
 
-function closeViewer(){document.getElementById("viewer").style.display="none";}
+function closeViewer(){
+  document.getElementById("viewer").style.display="none";
+}
 
 // ОТКРЫТИЯ/ЗАКРЫТИЯ МЕНЮ, КОРЗИНЫ, OVERLAY
 function closeAll(){
@@ -170,6 +177,11 @@ function closeAll(){
   document.getElementById("overlay").style.display="none";
 }
 
-function toggleMenu(){closeAll(); document.getElementById("side-menu").style.left="0px"; document.getElementById("overlay").style.display="block";}
+function toggleMenu(){
+  closeAll(); 
+  document.getElementById("side-menu").style.left="0px"; 
+  document.getElementById("overlay").style.display="block";
+}
+
 
 
