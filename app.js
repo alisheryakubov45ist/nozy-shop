@@ -1,15 +1,13 @@
-let products = [];
-let cart = [];
-let currentImages = [];
-let currentIndex = 0;
+let products=[];
+let cart=[];
+let currentImages=[];
+let currentIndex=0;
 
-fetch("products.json")
-  .then(r=>r.json())
-  .then(data=>{
-    products=data.products;
-    renderCategories(data.categories);
-    renderProducts(products);
-  });
+fetch("products.json").then(r=>r.json()).then(data=>{
+  products=data.products;
+  renderCategories(data.categories);
+  renderProducts(products);
+});
 
 function toggleMenu(){closeAll(); document.getElementById("side-menu").style.left="0px"; document.getElementById("overlay").style.display="block";}
 function filterCat(cat){renderProducts(products.filter(p=>p.category===cat)); closeAll();}
@@ -40,13 +38,13 @@ function renderProducts(list){
       <p>${p.price} TJS</p>
       <select class="select" id="c${p.id}">${p.colors.map(c=>`<option>${c}</option>`).join("")}</select>
       <select class="select" id="s${p.id}">${p.sizes.map(s=>`<option>${s}</option>`).join("")}</select>
-      <button onclick="addToCart(${p.id})">В корзину</button>
+      <button class="btn-cart" onclick="addToCart(${p.id})">В корзину</button>
     </div>`;
     initSlider(p.id, p.images.length);
   });
 }
 
-function initSlider(id, len){
+function initSlider(id,len){
   let idx=0;
   const slider=document.getElementById(`slider-${id}`);
   const dots=document.getElementById(`dots-${id}`).children;
