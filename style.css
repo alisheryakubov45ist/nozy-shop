@@ -1,28 +1,59 @@
 *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont}
 body{margin:0;background:#111;color:#fff}
 
-header{padding:12px;text-align:center;background:#0f0f0f}
+header{padding:12px;text-align:center;background:#0f0f0f;position:relative}
 .logo h1{margin:0;font-size:22px}
 .logo p{margin:0;font-size:13px;color:#aaa}
 .logo small{display:block;font-size:11px;color:#777}
 
+/* Кнопка 3 полоски */
+#menu-button{
+  position:absolute;
+  left:14px;
+  top:16px;
+  font-size:22px;
+  cursor:pointer;
+  color:#fff;
+  z-index:15;
+}
+.contact-number{
+  position:absolute;
+  left:50px;
+  top:18px;
+  font-size:14px;
+  color:#fff;
+}
+
+/* Сайд-меню */
+#side-menu{
+  position:fixed;
+  left:-260px;
+  top:0;
+  width:260px;
+  height:100%;
+  background:#1a1a1a;
+  padding:16px;
+  transition:0.3s;
+  z-index:20;
+}
+
 .categories{
   display:flex;
-  overflow-x:auto;
-  padding:10px 14px;
+  flex-direction:column;
   gap:10px;
 }
 .cat{
-  flex:0 0 auto;
-  background:#222;
   padding:6px 14px;
   border-radius:20px;
   font-size:13px;
   cursor:pointer;
   white-space:nowrap;
+  background:#222;
+  color:#fff;
 }
 .cat.active{background:#ff8c42;color:#000}
 
+/* Продукты */
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -56,60 +87,50 @@ button{
   cursor:pointer;
 }
 
+/* КОРЗИНА ВЕРХНЯЯ СТИКЕР */
 .cart-float-top{
   position:fixed;
   top:20px;
   right:20px;
-  background:#ffcd42;
-  color:#000;
+  background:#ff6a00; /* современный цвет */
+  color:#fff;
   padding:14px;
   border-radius:50%;
   font-size:20px;
-  z-index:20;
+  z-index:30;
   cursor:pointer;
 }
-#cart-count{font-size:12px}
+#cart-count{font-size:12px;color:red;font-weight:bold}
 
+/* КОРЗИНА */
 #cart{
   position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#111;
-  padding:16px;
-  display:none;
-  z-index:30;
+  top:60px;
+  right:20px;
+  width:260px;
+  max-height:80%;
+  background:#1a1a1a;
+  padding:12px;
+  overflow-y:auto;
+  border-radius:16px;
+  z-index:25;
 }
 
-#overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:none;
-  z-index:25
-}
-
-/* FULLSCREEN */
+/* FULLSCREEN VIEWER */
 #viewer{
   position:fixed;
-  inset:0;
   display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:40
+  top:0;left:0;
+  width:100%;height:100%;
+  justify-content:center;align-items:center;
+  z-index:50;
 }
 .viewer-bg{
-  position:absolute;
-  inset:0;
-  backdrop-filter:blur(20px);
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.5);
 }
-#viewer-img{
-  max-width:90%;
-  max-height:80%;
-  border-radius:16px;
-  z-index:2;
-}
-#viewer-dots{text-align:center;margin-top:10px;z-index:2}
-#viewer-dots span{color:#666}
-#viewer-dots .active{color:#fff}
-
+#viewer-img{max-width:90%;max-height:90%;border-radius:12px}
+#viewer-dots{text-align:center;margin-top:10px}
+#viewer-dots span{margin:0 2px;color:#aaa}
+#viewer-dots span.active{color:#ff8c42}
