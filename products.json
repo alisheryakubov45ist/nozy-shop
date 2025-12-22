@@ -1,7 +1,6 @@
 {
   "categories": ["Одежда", "Обувь", "Платки", "Аксессуары"],
-  "products": 
-[
+  "products": [
   {
     "id": 1,
     "name": "Oversize Hoodie",
@@ -51,6 +50,7 @@
     ]
   }
 ]
+
 
 
 
