@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOZY Store — пространство женского люкса</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOZY Store — пространство женского люкса</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- Header -->
 <div id="header">
-    <h1>NOZY Store</h1>
-    <p>пространство женского люкса</p>
+    <div>
+        <h1>NOZY Store</h1>
+        <p>пространство женского люкса</p>
+    </div>
     <div id="cart-icon" onclick="toggleCart()">
         🛒 <span id="cart-count">0</span>
     </div>
 </div>
 
+<!-- Categories -->
 <div id="categories"></div>
 
+<!-- Products -->
 <div id="products"></div>
 
+<!-- Cart -->
 <div id="cart">
     <h3>Корзина</h3>
     <div id="cart-items"></div>
@@ -29,10 +36,8 @@
         <option value="Доставка г.Душанбе">Доставка г.Душанбе</option>
         <option value="Доставка г.Истаравшан">Доставка г.Истаравшан</option>
     </select>
-    <button onclick="sendOrder()" class="btn-cart">Оформить заказ</button>
+    <button class="btn-cart" onclick="sendOrder()">Оформить заказ</button>
 </div>
-
-<div id="overlay" onclick="closeAll()"></div>
 
 <!-- Fullscreen Viewer -->
 <div id="viewer" onclick="closeViewer()">
@@ -40,11 +45,13 @@
     <div id="viewer-dots"></div>
 </div>
 
+<!-- Overlay -->
+<div id="overlay" onclick="closeAll()"></div>
+
+<!-- JS -->
 <script src="app.js"></script>
+
 </body>
 </html>
-
-
-
 
 
