@@ -113,7 +113,7 @@ header {
   cursor: pointer;
 }
 
-.select, #delivery, #phone, #cart button {
+select, #delivery, #phone, .btn-neutral, .btn-cart {
   width: 100%;
   margin-top: 6px;
   padding: 6px;
@@ -122,17 +122,21 @@ header {
   font-size: 14px;
 }
 
-button {
+.btn-cart {
   background: #ff7a00;
   color: #fff;
-  cursor: pointer;
+}
+
+.btn-neutral {
+  background: #444;
+  color: #fff;
 }
 
 #cart-btn {
   position: fixed;
   bottom: 55px;
   right: 25px;
-  background: #ff4500;
+  background: #ffb700;
   padding: 14px;
   border-radius: 50%;
   font-size: 20px;
@@ -155,7 +159,7 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #1f1f25;
+  background: #2a2a35;
   padding: 15px;
   display: none;
   border-radius: 16px 16px 0 0;
@@ -192,7 +196,7 @@ button {
   font-size: 40px;
   cursor: pointer;
   z-index: 3;
-  color: #ff7a00;
+  color: #ffb700;
   user-select: none;
 }
 
@@ -213,5 +217,6 @@ button {
 
 #viewer-dots .active {
   opacity: 1;
-  color: #ff7a00;
+  color: #ffb700;
 }
+
