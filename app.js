@@ -20,6 +20,18 @@ function renderCategories(cats){
   });
 }
 
+function toggleMenu(){
+  const menu=document.getElementById("side-menu");
+  const overlay=document.getElementById("overlay");
+  if(menu.style.left==="0px"){
+    menu.style.left="-260px";
+    overlay.style.display="none";
+  }else{
+    menu.style.left="0px";
+    overlay.style.display="block";
+  }
+}
+
 function renderProducts(list){
   const el=document.getElementById("products");
   el.innerHTML="";
@@ -30,7 +42,6 @@ function renderProducts(list){
 
     const img=document.createElement("img");
     img.src=p.images[0];
-
     img.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
     img.addEventListener("touchend",e=>{
       const dx=e.changedTouches[0].clientX-startX;
@@ -86,6 +97,7 @@ function closeAll(){
   document.getElementById("cart").style.display="none";
   document.getElementById("overlay").style.display="none";
   closeViewer();
+  document.getElementById("side-menu").style.left="-260px";
 }
 
 function sendOrder(){
@@ -93,8 +105,8 @@ function sendOrder(){
   const del=document.getElementById("delivery").value;
   if(!phone)return alert("Введите номер");
 
-  let msg="🛍 ЗАКАЗ NOZY\n";
-  cart.forEach(i=>msg+=`${i.name} ${i.size} ${i.color}\n`);
+  let msg="🛍 ЗАКАЗ NOZY Store\n";
+  cart.forEach(i=>msg+=`${i.name} ${i.size} ${i.color} | ${i.price} TJS\n`);
   msg+=`\n📞 ${phone}\n🚚 ${del}`;
   window.open("https://t.me/AMULEEE?text="+encodeURIComponent(msg));
 }
@@ -129,7 +141,6 @@ document.getElementById("viewer-img").addEventListener("touchend",e=>{
 function closeViewer(){
   document.getElementById("viewer").style.display="none";
 }
-
 
 
 
