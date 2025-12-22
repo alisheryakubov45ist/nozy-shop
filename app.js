@@ -144,26 +144,30 @@ function openViewer(images){
   document.getElementById("overlay").style.display = "block";
 }
 
-function showImage(){
-  document.getElementById("viewer-img").src = currentImages[currentIndex];
-  const dots = document.getElementById("viewer-dots");
-  dots.innerHTML = "";
-  currentImages.forEach((_, i) => {
-    dots.innerHTML += `<span class="${i===currentIndex?'active':''}">●</span>`;
-  });
+function openViewer(id){
+  const p = products.find(x=>x.id===id);
+  currentImages = p.images;
+  currentIndex = 0;
+  document.getElementById('viewer-img').src = currentImages[0];
+  document.getElementById('viewer').style.display='flex';
 }
 
-function prevImage(){
-  if(currentImages.length===0) return;
-  currentIndex = (currentIndex-1 + currentImages.length)%currentImages.length;
-  showImage();
+function closeViewer(e){
+  if(e.target.id==='viewer'){
+    document.getElementById('viewer').style.display='none';
+  }
 }
 
-function nextImage(){
-  if(currentImages.length===0) return;
+function nextImage(e){
+  e.stopPropagation();
   currentIndex = (currentIndex+1)%currentImages.length;
-  showImage();
+  document.getElementById('viewer-img').src = currentImages[currentIndex];
 }
+
+function prevImage(e){
+  e.stopPropagation();
+  currentIndex = (currentIndex-1+currentImages.length)%currentImages.length;
+  document.getElementById('viewer-img').src = currentImages[currentIndex];
 
 function closeViewer(){
   document.getElementById("viewer").style.display="none";
@@ -182,6 +186,7 @@ function toggleMenu(){
   document.getElementById("side-menu").style.left="0px"; 
   document.getElementById("overlay").style.display="block";
 }
+
 
 
 
