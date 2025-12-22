@@ -8,66 +8,46 @@
 </head>
 <body>
 
-<div id="overlay" onclick="closeAll()"></div>
-
-<header>
-  <div class="top-bar">
-    <div class="menu-btn" onclick="toggleMenu()">☰</div>
-    <div class="phone">📞 +992 97 358 99 22</div>
-  </div>
-
+<header class="header">
   <h1 class="logo">NOZY Store</h1>
   <p class="slogan">пространство женского люкса</p>
-
-  <div class="info">
-    <span>🚚 Доставка по г.Душанбе и г.Истаравшан</span>
-    <span>📍 Самовывоз: г.Душанбе</span>
-  </div>
+  <p class="phone">📞 +992 97 358 99 22</p>
 </header>
 
-<div id="side-menu">
-  <h3>Категории</h3>
-  <div class="side-cat" onclick="filterCat('Одежда')">👗 Одежда</div>
-  <div class="side-cat" onclick="filterCat('Обувь')">👠 Обувь</div>
-  <div class="side-cat" onclick="filterCat('Платки')">🧣 Платки</div>
-  <div class="side-cat" onclick="filterCat('Аксессуары')">👜 Аксессуары</div>
+<div id="categories" class="categories"></div>
+<div id="products" class="products"></div>
 
-  <h3>Связь</h3>
-  <p>📞 +992 97 358 99 22</p>
-</div>
+<!-- КОРЗИНА -->
+<div class="cart-btn" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
 
-<div id="categories"></div>
-<div class="grid" id="products"></div>
-
-<div id="cart-btn" onclick="toggleCart()">
-  🛒
-  <span id="cart-count">0</span>
-</div>
-
-<div id="cart">
-  <h3>Корзина</h3>
+<div id="cart" class="cart">
+  <h2>Корзина</h2>
   <div id="cart-items"></div>
-  <p id="total">Итого: 0 TJS</p>
 
-  <input id="phone" placeholder="Ваш номер телефона" type="text">
+  <input id="phone" type="tel" placeholder="Ваш номер телефона">
+
   <select id="delivery">
-    <option value="Самовывоз">Самовывоз</option>
+    <option value="">Способ получения</option>
+    <option value="Самовывоз">Самовывоз (г. Душанбе)</option>
     <option value="Доставка">Доставка</option>
   </select>
-  <button class="btn-neutral" id="order-btn" onclick="sendOrder()">Оформить заказ</button>
+
+  <p id="total">Итого: 0 TJS</p>
+  <button class="order-btn" onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<div id="viewer" class="viewer" onclick="closeViewer(event)">
-  <div class="viewer-inner">
-    <button class="nav left" onclick="prevImage(event)">‹</button>
-    <img id="viewer-img">
-    <button class="nav right" onclick="nextImage(event)">›</button>
-  </div>
+<div id="overlay" class="overlay" onclick="closeAll()"></div>
+
+<!-- FULLSCREEN -->
+<div id="viewer" class="viewer">
+  <img id="viewer-img">
+  <div id="viewer-dots" class="dots"></div>
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
+
 
 
 
