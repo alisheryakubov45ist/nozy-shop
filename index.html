@@ -8,10 +8,8 @@
 </head>
 <body>
 
-<!-- Overlay -->
 <div id="overlay" onclick="closeAll()"></div>
 
-<!-- HEADER -->
 <header>
   <div class="top-bar">
     <div class="menu-btn" onclick="toggleMenu()">☰</div>
@@ -27,7 +25,6 @@
   </div>
 </header>
 
-<!-- SIDE MENU -->
 <div id="side-menu">
   <h3>Категории</h3>
   <div class="side-cat" onclick="filterCat('Одежда')">👗 Одежда</div>
@@ -39,31 +36,26 @@
   <p>📞 +992 97 358 99 22</p>
 </div>
 
-<!-- TOP CATEGORIES -->
 <div id="categories"></div>
-
-<!-- PRODUCTS -->
 <div class="grid" id="products"></div>
 
-<!-- CART BUTTON -->
 <div id="cart-btn" onclick="toggleCart()">
   🛒
   <span id="cart-count">0</span>
 </div>
 
-<!-- CART -->
 <div id="cart">
   <h3>Корзина</h3>
   <div id="cart-items"></div>
   <p id="total">Итого: 0 TJS</p>
 
-  <input id="phone" placeholder="Ваш номер телефона">
+  <input id="phone" placeholder="Ваш номер телефона" type="text">
   <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- FULLSCREEN VIEWER -->
 <div id="viewer">
-  <div id="viewer-blur" onclick="closeViewer()"></div>
+  <div class="viewer-blur-top"></div>
+  <div class="viewer-blur-bottom"></div>
   <img id="viewer-img">
   <div id="viewer-dots"></div>
 </div>
@@ -71,4 +63,3 @@
 <script src="app.js"></script>
 </body>
 </html>
-
