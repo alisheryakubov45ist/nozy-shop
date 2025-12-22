@@ -32,13 +32,28 @@ function renderProducts(list){
   list.forEach(p=>{
     el.innerHTML+=`
     <div class="card">
-      <img id="img-${p.id}" src="${p.images[0]}" onclick='openViewer(${JSON.stringify(p.images)})'>
+      <div class="slider" id="slider-${p.id}">
+        <img src="${p.images[0]}" onclick='openViewer(${JSON.stringify(p.images)})'>
+      </div>
+      <div class="dots" id="dots-${p.id}">${p.images.map((_,i)=>`<span class="${i===0?'active':''}">●</span>`).join('')}</div>
       <h4>${p.name}</h4>
       <p>${p.price} TJS</p>
       <select class="select" id="c${p.id}">${p.colors.map(c=>`<option>${c}</option>`).join("")}</select>
       <select class="select" id="s${p.id}">${p.sizes.map(s=>`<option>${s}</option>`).join("")}</select>
       <button onclick="addToCart(${p.id})">В корзину</button>
     </div>`;
+    initSlider(p.id, p.images.length);
+  });
+}
+
+function initSlider(id, len){
+  let idx=0;
+  const slider=document.getElementById(`slider-${id}`);
+  const dots=document.getElementById(`dots-${id}`).children;
+  slider.addEventListener('click',()=>{
+    idx=(idx+1)%len;
+    slider.querySelector('img').src=products.find(p=>p.id===id).images[idx];
+    for(let i=0;i<dots.length;i++){dots[i].className=i===idx?'active':'';}
   });
 }
 
@@ -70,11 +85,12 @@ function toggleCart(){closeAll(); document.getElementById("cart").style.display=
 
 function sendOrder(){
   const phone=document.getElementById("phone").value;
+  const delivery=document.getElementById("delivery").value;
   if(!phone){alert("Введите номер телефона"); return;}
   let msg="🛍 ЗАКАЗ NOZY Store\n\n";
   let total=0;
   cart.forEach(i=>{msg+=`${i.name} | ${i.size} | ${i.color} | ${i.price} TJS\n`; total+=i.price;});
-  msg+=`\n💰 Итого: ${total} TJS\n📞 ${phone}`;
+  msg+=`\n💰 Итого: ${total} TJS\n📞 ${phone}\n🚚 ${delivery}`;
   window.open("https://t.me/AMULEEE?text="+encodeURIComponent(msg));
 }
 
