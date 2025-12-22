@@ -2,7 +2,6 @@ let products = [];
 let cart = [];
 let currentImages = [];
 let currentIndex = 0;
-let autoSwipe;
 
 // Загрузка товаров из JSON
 fetch("products.json")
@@ -60,20 +59,21 @@ function renderProducts(list) {
         <button onclick="addToCart(${p.id})">В корзину</button>
       </div>
     `;
-    startAutoSwipe(`img-${p.id}`, p.images);
-  });
-}
 
-// Автосвайп товаров на карточке
-function startAutoSwipe(id, images) {
-  let i = 0;
-  setInterval(() => {
-    const img = document.getElementById(id);
-    if (img) {
-      i = (i + 1) % images.length;
-      img.src = images[i];
+    // Добавляем точки под фото на главном экране
+    const card = document.getElementById(`img-${p.id}`).parentElement;
+    if (p.images.length > 1) {
+      const dots = document.createElement("div");
+      dots.className = "product-dots";
+      p.images.forEach((_,i) => {
+        const span = document.createElement("span");
+        span.innerText = "●";
+        if (i === 0) span.classList.add("active");
+        dots.appendChild(span);
+      });
+      card.appendChild(dots);
     }
-  }, 2500);
+  });
 }
 
 // ----- CART -----
@@ -141,11 +141,6 @@ function openViewer(images) {
   currentIndex = 0;
   showImage();
   document.getElementById("viewer").style.display = "flex";
-
-  autoSwipe = setInterval(() => {
-    currentIndex = (currentIndex + 1) % currentImages.length;
-    showImage();
-  }, 2500);
 }
 
 function showImage() {
@@ -159,7 +154,6 @@ function showImage() {
 
 function closeViewer() {
   document.getElementById("viewer").style.display = "none";
-  clearInterval(autoSwipe);
 }
 
 // ----- CLOSE ALL -----
@@ -169,4 +163,3 @@ function closeAll() {
   closeViewer();
   document.getElementById("overlay").style.display = "none";
 }
-
