@@ -132,7 +132,7 @@ button {
 
 #cart-btn {
   position: fixed;
-  bottom: 35px;
+  bottom: 55px;
   right: 25px;
   background: #ff9500;
   padding: 14px;
@@ -206,10 +206,6 @@ button {
   opacity: 1;
   color: #ff7a00;
 }
-
-
-
-
 
 
 
