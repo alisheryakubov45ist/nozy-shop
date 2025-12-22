@@ -9,12 +9,25 @@
 <body>
 
 <header class="header">
-  <h1 class="logo">NOZY Store</h1>
+  <div class="top-bar">
+    <button class="burger" onclick="toggleMenu()">☰</button>
+    <h1 class="logo">NOZY Store</h1>
+  </div>
+
   <p class="slogan">пространство женского люкса</p>
-  <p class="phone">📞 +992 97 358 99 22</p>
+  <p class="delivery-text">
+    Самовывоз — г. Душанбе<br>
+    Доставка — г. Душанбе и г. Истаравшан
+  </p>
 </header>
 
-<div id="categories" class="categories"></div>
+<!-- БОКОВОЕ МЕНЮ -->
+<div id="menu" class="menu">
+  <p class="menu-title">Категории</p>
+  <div id="categories"></div>
+  <p class="menu-phone">📞 +992 97 358 99 22</p>
+</div>
+
 <div id="products" class="products"></div>
 
 <!-- КОРЗИНА -->
@@ -24,12 +37,12 @@
   <h2>Корзина</h2>
   <div id="cart-items"></div>
 
-  <input id="phone" type="tel" placeholder="Ваш номер телефона">
+  <input id="phone" placeholder="Ваш номер телефона">
 
   <select id="delivery">
     <option value="">Способ получения</option>
-    <option value="Самовывоз">Самовывоз (г. Душанбе)</option>
-    <option value="Доставка">Доставка по г.Душанбе и г.Истаравшан</option>
+    <option value="Самовывоз">Самовывоз</option>
+    <option value="Доставка">Доставка</option>
   </select>
 
   <p id="total">Итого: 0 TJS</p>
@@ -39,7 +52,7 @@
 <div id="overlay" class="overlay" onclick="closeAll()"></div>
 
 <!-- FULLSCREEN -->
-<div id="viewer" class="viewer">
+<div id="viewer" class="viewer" onclick="closeViewer()">
   <img id="viewer-img">
   <div id="viewer-dots" class="dots"></div>
 </div>
