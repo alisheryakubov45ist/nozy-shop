@@ -11,7 +11,6 @@
 <div id="overlay" onclick="closeAll()"></div>
 
 <header>
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
   <div class="logo">
     <h1>NOZY store</h1>
     <p>пространство женского люкса</p>
@@ -22,13 +21,13 @@
 </header>
 
 <!-- КАТЕГОРИИ -->
-<div id="categories"></div>
+<div id="categories" class="categories"></div>
 
 <!-- ТОВАРЫ -->
 <div id="products" class="products"></div>
 
-<!-- КОРЗИНА КНОПКА -->
-<div class="cart-float" onclick="toggleCart()">
+<!-- КОРЗИНА В ВЕРХНЕМ ПРАВОМ УГЛУ -->
+<div class="cart-float-top" onclick="toggleCart()">
   🛒 <span id="cart-count">0</span>
 </div>
 
@@ -48,7 +47,7 @@
   <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- FULLSCREEN -->
+<!-- FULLSCREEN VIEWER -->
 <div id="viewer">
   <div class="viewer-bg" onclick="closeViewer()"></div>
   <img id="viewer-img">
