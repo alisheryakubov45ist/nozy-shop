@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- Overlay -->
+<div id="overlay" onclick="closeAll()"></div>
+
 <!-- HEADER -->
 <header>
   <div class="top-bar">
@@ -19,7 +22,7 @@
   <p class="slogan">пространство женского люкса</p>
 
   <div class="info">
-    <span>🚚 Доставка</span>
+    <span>🚚 Доставка по всей стране</span>
     <span>📍 Самовывоз: г.Душанбе мечеть Мехкалонна</span>
   </div>
 </header>
@@ -58,7 +61,7 @@
   <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- VIEWER -->
+<!-- FULLSCREEN VIEWER -->
 <div id="viewer">
   <div id="viewer-blur" onclick="closeViewer()"></div>
   <img id="viewer-img">
