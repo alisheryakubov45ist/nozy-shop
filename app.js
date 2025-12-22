@@ -12,6 +12,16 @@ fetch("products.json")
     renderProducts(products);
   });
 
+function toggleMenu() {
+  const m = document.getElementById("side-menu");
+  m.style.left = m.style.left === "0px" ? "-260px" : "0px";
+}
+
+function filterCat(cat) {
+  renderProducts(products.filter(p => p.category === cat));
+  toggleMenu();
+}
+
 function renderCategories(cats) {
   const el = document.getElementById("categories");
   el.innerHTML = "";
@@ -19,7 +29,7 @@ function renderCategories(cats) {
     const d = document.createElement("div");
     d.className = "cat";
     d.innerText = c;
-    d.onclick = () => renderProducts(products.filter(p => p.category === c));
+    d.onclick = () => filterCat(c);
     el.appendChild(d);
   });
 }
@@ -45,17 +55,18 @@ function renderProducts(list) {
         <button onclick="addToCart(${p.id})">В корзину</button>
       </div>
     `;
-
     startAutoSwipe(`img-${p.id}`, p.images);
   });
 }
 
-function startAutoSwipe(imgId, images) {
+function startAutoSwipe(id, images) {
   let i = 0;
   setInterval(() => {
-    i = (i + 1) % images.length;
-    const img = document.getElementById(imgId);
-    if (img) img.src = images[i];
+    const img = document.getElementById(id);
+    if (img) {
+      i = (i + 1) % images.length;
+      img.src = images[i];
+    }
   }, 2500);
 }
 
@@ -67,6 +78,7 @@ function addToCart(id) {
     color: document.getElementById("c"+id).value,
     size: document.getElementById("s"+id).value
   });
+  document.getElementById("cart-count").innerText = cart.length;
   renderCart();
 }
 
@@ -128,4 +140,3 @@ function closeViewer() {
   document.getElementById("viewer").style.display = "none";
   clearInterval(autoSwipe);
 }
-
