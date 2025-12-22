@@ -113,21 +113,18 @@ header {
   cursor: pointer;
 }
 
-.select {
+.select, #delivery, #phone, #cart button {
   width: 100%;
   margin-top: 6px;
   padding: 6px;
   border-radius: 6px;
+  border: none;
+  font-size: 14px;
 }
 
 button {
-  width: 100%;
-  padding: 10px;
   background: #ff7a00;
-  border: none;
-  border-radius: 10px;
   color: #fff;
-  margin-top: 8px;
   cursor: pointer;
 }
 
@@ -135,7 +132,7 @@ button {
   position: fixed;
   bottom: 55px;
   right: 25px;
-  background: #ff7000;
+  background: #ff4500;
   padding: 14px;
   border-radius: 50%;
   font-size: 20px;
@@ -153,20 +150,16 @@ button {
   padding: 2px 6px;
 }
 
-#cart, #cart button, #cart input {
-  position: relative;
-  z-index: 30;
-}
-
 #cart {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #121214;
+  background: #1f1f25;
   padding: 15px;
   display: none;
   border-radius: 16px 16px 0 0;
+  z-index: 30;
 }
 
 #viewer {
@@ -222,5 +215,3 @@ button {
   opacity: 1;
   color: #ff7a00;
 }
-
-
