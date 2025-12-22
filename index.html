@@ -1,46 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>NOZY Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOZY Store</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- OVERLAY -->
 <div id="overlay" onclick="closeAll()"></div>
 
-<!-- HEADER -->
 <header>
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
   <div class="logo">
     <h1>NOZY store</h1>
     <p>пространство женского люкса</p>
-    <span>📍 Самовывоз: г. Душанбе</span>
-    <span>🚚 Доставка: Душанбе / Истаравшан</span>
-    <span>📞 +992973589922</span>
-  </div>
-  <div class="cart-btn" onclick="toggleCart()">
-    🛒 <span id="cart-count">0</span>
+    <small>📍 Самовывоз: Душанбе</small>
+    <small>🚚 Доставка: Душанбе / Истаравшан</small>
+    <small>📞 +992973589922</small>
   </div>
 </header>
 
-<!-- SIDE MENU -->
-<div id="side-menu">
-  <h3>Категории</h3>
-  <div id="categories-menu"></div>
-  <p class="contact">📞 +992973589922</p>
-</div>
-
-<!-- CATEGORIES -->
+<!-- КАТЕГОРИИ -->
 <div id="categories"></div>
 
-<!-- PRODUCTS -->
+<!-- ТОВАРЫ -->
 <div id="products" class="products"></div>
 
-<!-- CART -->
+<!-- КОРЗИНА КНОПКА -->
+<div class="cart-float" onclick="toggleCart()">
+  🛒 <span id="cart-count">0</span>
+</div>
+
+<!-- КОРЗИНА -->
 <div id="cart">
   <h3>Корзина</h3>
   <div id="cart-items"></div>
@@ -56,17 +48,18 @@
   <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- FULLSCREEN VIEWER -->
-<div id="viewer" onclick="closeViewer(event)">
-  <div class="viewer-content">
-    <img id="viewer-img">
-    <div id="viewer-dots"></div>
-  </div>
+<!-- FULLSCREEN -->
+<div id="viewer">
+  <div class="viewer-bg" onclick="closeViewer()"></div>
+  <img id="viewer-img">
+  <div id="viewer-dots"></div>
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
+
+
 
 
 
