@@ -1,152 +1,190 @@
-
+/* Общие стили */
 body {
     margin:0;
     font-family: Arial, sans-serif;
-    background-color: #1e1e1e;
-    color: #fff;
+    background:#1e1e1e;
+    color:#fff;
 }
 
+h1, p {
+    margin:0;
+}
+
+/* Хедер */
 #header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 20px;
-    background-color:#222;
-    position:sticky;
+    position:fixed;
     top:0;
-    z-index:100;
+    left:0;
+    right:0;
+    background:#2a2a2a;
+    padding:10px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    z-index:1000;
 }
 
 #header h1 {
-    margin:0;
     font-family: 'Georgia', serif;
-    font-weight:bold;
+    font-size:20px;
 }
 
 #header p {
-    margin:0;
-    font-size:14px;
+    font-size:12px;
     color:#ccc;
 }
 
 #cart-icon {
+    cursor:pointer;
     position:relative;
     font-size:24px;
-    cursor:pointer;
-    color:#ff9800;
+    color:#ff9500; /* Яркая иконка корзины */
 }
 
 #cart-count {
     position:absolute;
     top:-8px;
     right:-8px;
-    background:red;
-    color:white;
+    background:red; /* Количество выделяется красным */
+    color:#fff;
     font-size:12px;
-    width:18px;
-    height:18px;
     border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    padding:2px 6px;
 }
 
+/* Категории: горизонтальный скролл и одинаковые размеры */
 #categories {
     display:flex;
-    justify-content:center;
-    gap:15px;
-    padding:10px 0;
+    overflow-x:auto;
+    gap:10px;
+    padding:60px 10px 10px 10px; /* отступ сверху чтобы не перекрывало header */
     background:#2a2a2a;
 }
 
 .cat {
+    flex:0 0 auto;
     padding:5px 15px;
     cursor:pointer;
     border-radius:20px;
     background:#444;
+    min-width:80px;
+    text-align:center;
+    transition:0.3s;
 }
 
-.cat.active {
-    background:#ff9800;
-    color:#000;
+.cat.active, .cat:hover {
+    background:#ff9500;
+    color:#fff;
 }
 
+/* Продукты: по 2 в строке */
 #products {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
     gap:15px;
-    padding:15px;
+    padding:10px 15px 100px 15px; /* снизу отступ для корзины */
 }
 
 .card {
     background:#2a2a2a;
-    padding:10px;
     border-radius:10px;
-    width:180px;
+    padding:10px;
     text-align:center;
 }
 
 .card img {
     width:100%;
+    height:180px;
+    object-fit:cover;
     border-radius:10px;
     cursor:pointer;
 }
 
+/* Кнопки */
 .btn-cart {
-    margin-top:5px;
-    padding:5px 10px;
+    background:#ff9500;
     border:none;
+    color:#fff;
+    padding:5px 10px;
     border-radius:5px;
-    background:#ff9800;
-    color:#000;
     cursor:pointer;
+    margin-top:5px;
+    width:100%;
 }
 
+select, input[type="text"] {
+    width:100%;
+    margin-top:5px;
+    padding:5px;
+    border-radius:5px;
+    border:none;
+}
+
+/* Корзина */
 #cart {
-    display:none;
     position:fixed;
     top:60px;
-    right:20px;
+    right:10px;
     width:300px;
-    background:#333;
-    padding:10px;
+    max-height:80vh;
+    background:#2a2a2a;
     border-radius:10px;
-    z-index:100;
+    padding:10px;
+    display:none;
+    overflow:auto;
+    z-index:1001;
 }
 
+#cart-items p {
+    margin:5px 0;
+}
+
+/* Overlay */
 #overlay {
     display:none;
     position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.5);
-    z-index:50;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    z-index:999;
 }
 
+/* Fullscreen Viewer */
 #viewer {
     display:none;
     position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     justify-content:center;
     align-items:center;
-    background:rgba(0,0,0,0.6);
-    z-index:200;
+    background:rgba(0,0,0,0.8);
+    flex-direction:column;
+    z-index:1002;
 }
 
-#viewer img {
+#viewer-img {
     max-width:90%;
-    max-height:90%;
+    max-height:80%;
     border-radius:10px;
 }
 
 #viewer-dots {
-    position:absolute;
-    bottom:30px;
-    width:100%;
-    text-align:center;
-    font-size:18px;
-    color:#fff;
+    margin-top:10px;
 }
+
+#viewer-dots span {
+    font-size:20px;
+    color:#fff;
+    margin:0 3px;
+}
+
+#viewer-dots span.active {
+    color:#ff9500;
+}
+
+
 
