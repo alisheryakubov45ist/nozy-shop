@@ -1,202 +1,191 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
 
 body {
-  margin:0;
-  font-family: 'Arial', sans-serif;
-  background: #111; /* Темный фон */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
   color: #fff;
 }
 
+/* ================= HEADER ================= */
+
 .header {
-  text-align:center;
-  padding: 20px;
-  position: relative;
-  background: #222;
+  text-align: center;
+  padding: 22px 16px;
+  background: #111;
 }
 
 .logo {
   font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  font-weight: bold;
-  color: #ff9900; /* яркий элитный цвет */
+  font-size: 34px;
+  font-weight: 700;
+  color: #d4af37; /* золото */
+  letter-spacing: 1px;
 }
 
 .slogan {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 16px;
   font-style: italic;
-  color: #ffd700;
-  margin-bottom:5px;
+  color: #bfa14a;
+  margin-top: 4px;
 }
 
-.contact, .info {
-  font-size: 14px;
-  margin: 2px 0;
-}
+/* ================= CATEGORIES ================= */
 
 .categories {
   display: flex;
-  justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
-  margin: 10px 0;
+  padding: 10px 12px;
+  overflow-x: auto;
 }
 
 .cat {
   padding: 8px 16px;
   border-radius: 20px;
-  background: #333;
-  cursor:pointer;
+  background: #1c1c1c;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 .cat.active {
-  background: #ff9900;
-  color:#000;
+  background: #d4af37;
+  color: #000;
 }
+
+/* ================= PRODUCTS (ZARA GRID) ================= */
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; /* карточки слева направо */
-  gap: 10px;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 карточки */
+  gap: 14px;
+  padding: 14px;
 }
 
+/* ================= CARD (LUXURY STYLE) ================= */
+
 .card {
-  background:#222;
-  padding:10px;
-  flex: 0 0 calc(50% - 5px); /* по 2 карточки в ряд */
-  border-radius:10px;
-  text-align:center;
-  position:relative;
+  background: #141414;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
+/* мягкий подъём */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ================= IMAGE ================= */
 
 .card img {
   width: 100%;
-  max-height: 200px;
+  aspect-ratio: 3 / 4; /* как у ZARA */
   object-fit: cover;
-  border-radius:10px;
-  cursor:pointer;
+  transition: transform 0.6s ease;
 }
 
+/* медленный zoom */
+.card:hover img {
+  transform: scale(1.06);
+}
+
+/* ================= INFO ================= */
+
+.card-content {
+  padding: 10px;
+}
+
+.product-title {
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+  color: #eaeaea;
+}
+
+.product-price {
+  font-size: 13px;
+  color: #d4af37;
+}
+
+/* ================= DOTS ================= */
+
 .swipe-dots {
-  text-align:center;
-  margin-top:5px;
+  text-align: center;
+  margin: 6px 0 4px;
 }
 
 .swipe-dots span {
-  font-size:14px;
-  color:#ccc;
-  margin:0 2px;
-}
-
-.swipe-dots span.active {
-  color:#ff9900;
-}
-
-button, select, input {
-  padding:8px;
-  margin:5px 0;
-  border-radius:5px;
-  border:none;
-  font-size:14px;
-}
-
-button {
-  background:#ff9900;
-  color:#000;
-  cursor:pointer;
-}
-
-.cart-icon {
-  position:absolute;
-  top:20px;
-  right:20px;
-  font-size:28px;
-  cursor:pointer;
-  color:#ffcc00;
-}
-
-#cart-count {
-  background:red;
-  color:white;
-  border-radius:50%;
-  padding:2px 6px;
-  margin-left:5px;
-  font-size:14px;
-}
-
-.cart {
-  position:fixed;
-  top:50px;
-  right:20px;
-  width:300px;
-  background:#333;
-  padding:15px;
-  border-radius:10px;
-  display:none;
-  z-index:1001;
-}
-
-#overlay {
-  display:none;
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background: rgba(0,0,0,0.5);
-  z-index:1000;
-}
-
-#viewer {
-  display:none;
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  justify-content:center;
-  align-items:center;
-  background: rgba(0,0,0,0.7);
-  z-index:2000;
-  backdrop-filter: blur(8px); /* блюр вокруг фото */
-}
-
-#close-viewer {
-  position:absolute;
-  top:20px;
-  right:20px;
-  font-size:32px;
-  color:#fff;
-  background:transparent;
-  border:none;
-  cursor:pointer;
-  z-index:2100;
-}
-
-#viewer-img {
-  max-width:90%;
-  max-height:80%;
-  border-radius:10px;
-}
-
-#viewer-dots {
-  text-align:center;
-  margin-top:10px;
-}
-
-#viewer-dots span {
-  font-size:18px;
-  color: #ccc;
+  font-size: 12px;
+  color: #555;
   margin: 0 2px;
 }
 
-#viewer-dots span.active {
-  color: #ff9900;
+.swipe-dots span.active {
+  color: #d4af37;
 }
 
-/* Адаптив для мобильных */
+/* ================= CART ICON ================= */
+
+.cart-icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 26px;
+  color: #d4af37;
+  cursor: pointer;
+}
+
+#cart-count {
+  background: #b00020;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* ================= IMAGE VIEWER ================= */
+
+#viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+#viewer-img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 12px;
+}
+
+#close-viewer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 32px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================= MOBILE ================= */
+
 @media screen and (max-width: 600px) {
-  .card {
-    flex: 0 0 calc(50% - 5px); /* тоже 2 карточки в ряд на мобильных */
+  .products {
+    grid-template-columns: repeat(2, 1fr); /* всегда 2 */
   }
-  .categories {
-    justify-content: flex-start;
-    overflow-x: auto;
-  }
-  }
+}
