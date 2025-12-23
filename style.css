@@ -58,3 +58,17 @@
 <script src="app.js"></script>
 </body>
 </html>
+/* ТОЧКИ ПОД ФОТО (ОБНОВЛЕН ЦВЕТ) */
+.dots span,
+#viewer-dots span {
+  font-size: 10px;
+  margin: 0 3px;
+  color: rgba(255,255,255,0.35); /* неактивная */
+}
+
+.dots span.active,
+#viewer-dots span.active {
+  color: #d4af37; /* ЗОЛОТОЙ — дорого и видно */
+}
+
+
