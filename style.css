@@ -1,194 +1,191 @@
-/* Общий стиль */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
 body {
-  margin: 0;
+  margin:0;
   font-family: 'Arial', sans-serif;
-  background-color: #1c1c1c; /* тёмная дорогая тема */
+  background: #111;
   color: #fff;
 }
 
-/* Заголовок магазина */
-header {
-  text-align: center;
-  padding: 20px 0;
+.header {
+  text-align:center;
+  padding: 20px;
+  position: relative;
+  background: #222;
 }
 
-header h1 {
-  font-family: 'Georgia', serif; /* элитный шрифт */
-  font-size: 28px;
-  color: #ffcc00; /* яркий цвет */
-  margin: 0;
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #ff9900;
 }
 
-header p {
-  font-family: 'Georgia', serif;
-  font-size: 16px;
-  color: #ffeb99;
-  margin: 5px 0 0 0;
+.slogan {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: #ffd700;
+  margin-bottom:5px;
 }
 
-/* Категории */
-#categories {
+.contact, .info {
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.categories {
   display: flex;
-  justify-content: space-around;
-  padding: 10px;
+  justify-content: center;
+  gap: 10px;
   flex-wrap: wrap;
+  margin: 10px 0;
 }
 
 .cat {
-  padding: 8px 12px;
-  background-color: #333;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #fff;
-  transition: all 0.3s;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #333;
+  cursor:pointer;
 }
 
 .cat.active {
-  background-color: #ff9900;
-  color: #fff;
+  background: #ff9900;
+  color:#000;
 }
 
-/* Контейнер продуктов */
-#products {
+.products {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 10px;
   padding: 10px;
-  gap: 10px; /* расстояние между карточками */
 }
 
-/* Карточка товара */
 .card {
-  flex: 0 0 48%; /* две карточки в ряд */
-  background-color: #2a2a2a;
-  border-radius: 10px;
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
+  background:#222;
+  padding:10px;
+  flex: 0 0 48%; /* по 2 карточки в ряд */
+  border-radius:10px;
+  text-align:center;
+  position:relative;
 }
 
 .card img {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
-  cursor: pointer;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-/* Названия и цены */
-.card h4, .card p {
-  margin: 8px 0;
+.swipe-dots {
+  text-align:center;
+  margin-top:5px;
 }
 
-/* Селекторы цвета и размера */
-.card select {
-  margin: 5px 5px 5px 0;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
+.swipe-dots span {
+  font-size:14px;
+  color:#ccc;
+  margin:0 2px;
 }
 
-/* Кнопка "В корзину" */
-.btn-cart {
-  padding: 10px 15px;
-  background-color: #ff6600; /* цвет кнопки выделяемый */
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s;
+.swipe-dots span.active {
+  color:#ff9900;
 }
 
-.btn-cart:hover {
-  background-color: #ff8800;
+button, select, input {
+  padding:8px;
+  margin:5px 0;
+  border-radius:5px;
+  border:none;
+  font-size:14px;
 }
 
-/* Корзина */
-#cart {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  background-color: #333;
-  padding: 15px;
-  border-radius: 12px;
-  width: 300px;
-  display: none;
-  z-index: 1000;
+button {
+  background:#ff9900;
+  color:#000;
+  cursor:pointer;
 }
 
-#cart h3 {
-  margin-top: 0;
+.cart-icon {
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:28px;
+  cursor:pointer;
+  color:#ffcc00;
 }
 
-#cart p {
-  margin: 5px 0;
-}
-
-/* Кол-во товаров на иконке */
 #cart-count {
-  color: #ff3b30;
-  font-weight: bold;
-  margin-left: 5px;
+  background:red;
+  color:white;
+  border-radius:50%;
+  padding:2px 6px;
+  margin-left:5px;
+  font-size:14px;
 }
 
-/* Overlay */
+.cart {
+  position:fixed;
+  top:50px;
+  right:20px;
+  width:300px;
+  background:#333;
+  padding:15px;
+  border-radius:10px;
+  display:none;
+  z-index:1001;
+}
+
 #overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  display: none;
-  z-index: 999;
+  display:none;
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background: rgba(0,0,0,0.5);
+  z-index:1000;
 }
 
-/* Fullscreen viewer */
 #viewer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(28,28,28,0.9);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  flex-direction: column;
+  display:none;
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  justify-content:center;
+  align-items:center;
+  background: rgba(0,0,0,0.7);
+  z-index:2000;
+  backdrop-filter: blur(8px);
+}
+
+#close-viewer {
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:32px;
+  color:#fff;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  z-index:2100;
 }
 
 #viewer-img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 12px;
+  max-width:90%;
+  max-height:80%;
+  border-radius:10px;
 }
 
 #viewer-dots {
-  margin-top: 10px;
+  text-align:center;
+  margin-top:10px;
 }
 
 #viewer-dots span {
-  font-size: 20px;
-  margin: 0 3px;
-  cursor: pointer;
-  color: #888;
+  font-size:18px;
+  color: #ccc;
+  margin: 0 2px;
 }
 
 #viewer-dots span.active {
-  color: #ffcc00;
-}
-
-/* Анимация blur вокруг фото (fullscreen) */
-#viewer::before {
-  content: '';
-  position: absolute;
-  top:0; left:0;
-  width: 100%; height: 100%;
-  backdrop-filter: blur(10px);
-  z-index: -1;
+  color: #ff9900;
   }
