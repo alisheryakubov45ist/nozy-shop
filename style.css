@@ -1,58 +1,60 @@
-/* ===== ЭЛИТНЫЙ БРЕНД ===== */
-.header {
-  text-align: center;
-  padding: 18px 16px 14px;
-  position: relative;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOZY Store</title>
 
-.brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-.brand-title {
-  font-family: "Playfair Display", serif;
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: #d4af37; /* золотой элитный */
-  margin: 0;
-}
+<header>
+  <div class="top-bar">
+    <h1 class="logo">NOZY Store</h1>
 
-.brand-slogan {
-  font-size: 13px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  margin: 0;
-}
+    <div class="cart-icon" onclick="toggleCart()">
+      🛍
+      <span id="cart-count">0</span>
+    </div>
+  </div>
 
-.phone {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  margin-top: 4px;
-}
+  <p class="sub">
+    Пространство женского люкса<br>
+    Самовывоз г. Душанбе · Доставка Душанбе / Истаравшан<br>
+    📞 +992 973 589 922
+  </p>
 
-/* корзина справа — как была */
-.cart-btn {
-  position: absolute;
-  right: 16px;
-  top: 18px;
-}
+  <div id="categories" class="categories"></div>
+</header>
 
-/* ===== ТОЧКИ ПОД ФОТО ===== */
-.dots span,
-#viewer-dots span {
-  font-size: 10px;
-  margin: 0 3px;
-  color: rgba(255,255,255,0.35);
-}
+<main id="products" class="products"></main>
 
-.dots span.active,
-#viewer-dots span.active {
-  color: #d4af37;
-}
+<div id="overlay" onclick="closeAll()"></div>
 
+<!-- КОРЗИНА -->
+<div id="cart" class="cart">
+  <h3>Корзина</h3>
+  <div id="cart-items"></div>
+  <p id="total"></p>
 
+  <input id="phone" placeholder="Номер телефона">
+  <select id="delivery">
+    <option>Самовывоз</option>
+    <option>Доставка</option>
+  </select>
+
+  <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
+</div>
+
+<!-- FULLSCREEN -->
+<div id="viewer" class="viewer">
+  <div class="blur-bg" id="blur-bg"></div>
+  <img id="viewer-img">
+  <div id="viewer-dots"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
