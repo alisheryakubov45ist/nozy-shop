@@ -174,17 +174,6 @@ button{
   max-height:80%;
   z-index:2;
 }
-#viewer-dots{
-  z-index:2;
-  margin-top:10px;
-}
-#viewer-dots span{
-  font-size:10px;
-  margin:0 3px;
-  opacity:.4;
-}
-#viewer-dots .active{opacity:1}
-
 /* ТОЧКИ ПОД ФОТО (ОБНОВЛЕН ЦВЕТ) */
 .dots span,
 #viewer-dots span {
@@ -197,6 +186,7 @@ button{
 #viewer-dots span.active {
   color: #d4af37; /* ЗОЛОТОЙ — дорого и видно */
 }
+
 
 
 
