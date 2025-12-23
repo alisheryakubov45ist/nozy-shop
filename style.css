@@ -174,19 +174,16 @@ button{
   max-height:80%;
   z-index:2;
 }
-/* ТОЧКИ ПОД ФОТО (ОБНОВЛЕН ЦВЕТ) */
-.dots span,
-#viewer-dots span {
-  font-size: 10px;
-  margin: 0 3px;
-  color: rgba(255,255,255,0.35); /* неактивная */
+#viewer-dots{
+  z-index:2;
+  margin-top:10px;
 }
-
-.dots span.active,
-#viewer-dots span.active {
-  color: #d4af37; /* ЗОЛОТОЙ — дорого и видно */
+#viewer-dots span{
+  font-size:10px;
+  margin:0 3px;
+  opacity:.4;
 }
-
+#viewer-dots .active{opacity:1}
 
 
 
