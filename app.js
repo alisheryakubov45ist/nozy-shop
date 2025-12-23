@@ -10,6 +10,7 @@ fetch("products.json")
   filterCat(currentCategory);
 });
 
+/* CATEGORIES */
 function renderCategories(){
   const cats=["Одежда","Обувь","Платки","Аксессуары"];
   const el=document.getElementById("categories");
@@ -31,6 +32,7 @@ function filterCat(cat){
   renderProducts(products.filter(p=>p.category===cat));
 }
 
+/* PRODUCTS */
 function renderProducts(list){
   const el=document.getElementById("products");
   el.innerHTML="";
@@ -42,19 +44,20 @@ function renderProducts(list){
     const img=document.createElement("img");
     img.src=p.images[0];
 
-    let sx=0;
-    img.ontouchstart=e=>sx=e.touches[0].clientX;
-    img.ontouchend=e=>{
-      const dx=e.changedTouches[0].clientX-sx;
+    let startX=0;
+    img.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+    img.addEventListener("touchend",e=>{
+      const dx=e.changedTouches[0].clientX-startX;
       if(Math.abs(dx)>50){
         idx=(dx<0?idx+1:idx-1+p.images.length)%p.images.length;
         img.src=p.images[idx];
       }
-    };
+    });
 
     img.onclick=()=>openViewer(p.images);
 
-    card.innerHTML=`
+    card.appendChild(img);
+    card.innerHTML+=`
       <h4>${p.name}</h4>
       <p>${p.price} TJS</p>
     `;
@@ -73,19 +76,19 @@ function renderProducts(list){
       renderCart();
     };
 
-    card.prepend(img);
     card.append(color,size,btn);
     el.appendChild(card);
   });
 }
 
+/* CART */
 function renderCart(){
   const el=document.getElementById("cart-items");
   el.innerHTML="";
   let t=0;
   cart.forEach(i=>{
     t+=i.price;
-    el.innerHTML+=`<p>${i.name} ${i.size}/${i.color} — ${i.price}</p>`;
+    el.innerHTML+=`<p>${i.name} ${i.size}/${i.color} — ${i.price} TJS</p>`;
   });
   document.getElementById("total").innerText="Итого: "+t+" TJS";
 }
@@ -101,26 +104,46 @@ function closeAll(){
   closeViewer();
 }
 
+/* ORDER */
 function sendOrder(){
   const phone=document.getElementById("phone").value;
   const del=document.getElementById("delivery").value;
-  let msg="🛍 Заказ NOZY\n";
+  let msg="🛍 Заказ NOZY Store\n";
   let t=0;
-  cart.forEach(i=>{msg+=`${i.name} ${i.size}/${i.color}\n`;t+=i.price;});
+  cart.forEach(i=>{
+    msg+=`${i.name} ${i.size}/${i.color}\n`;
+    t+=i.price;
+  });
   msg+=`💰 ${t} TJS\n📞 ${phone}\n🚚 ${del}`;
   window.open("https://t.me/AMULEEE?text="+encodeURIComponent(msg));
 }
 
-let viewerImgs=[],vIdx=0;
+/* FULLSCREEN SWIPE */
+let viewerImgs=[],vIdx=0,startX=0;
+
 function openViewer(arr){
-  viewerImgs=arr;vIdx=0;
-  showV();
-  document.getElementById("viewer").style.display="flex";
-  document.getElementById("overlay").style.display="block";
+  viewerImgs=arr;
+  vIdx=0;
+  updateViewer();
+  const v=document.getElementById("viewer");
+  v.style.display="flex";
+
+  v.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+  v.addEventListener("touchend",e=>{
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>50){
+      vIdx=(dx<0?vIdx+1:vIdx-1+viewerImgs.length)%viewerImgs.length;
+      updateViewer();
+    }
+  });
+
+  v.onclick=closeViewer;
 }
-function showV(){
+
+function updateViewer(){
   document.getElementById("viewer-img").src=viewerImgs[vIdx];
 }
+
 function closeViewer(){
   document.getElementById("viewer").style.display="none";
-}
+      }
