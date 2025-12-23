@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
 body {
   margin:0;
   font-family: 'Arial', sans-serif;
-  background: #111; /* элитный темный фон */
+  background: #111;
   color: #fff;
 }
 
@@ -13,12 +15,14 @@ body {
 }
 
 .logo {
+  font-family: 'Playfair Display', serif;
   font-size: 36px;
   font-weight: bold;
   color: #ff9900;
 }
 
 .slogan {
+  font-family: 'Playfair Display', serif;
   font-size: 18px;
   font-style: italic;
   color: #ffd700;
@@ -61,7 +65,7 @@ body {
 .card {
   background:#222;
   padding:10px;
-  width: calc(50% - 20px);
+  width: calc(50% - 20px); /* по 2 карточки в ряд */
   border-radius:10px;
   text-align:center;
   position:relative;
@@ -183,4 +187,4 @@ button {
 
 #viewer-dots span.active {
   color: #ff9900;
-}
+  }
