@@ -1,63 +1,190 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOZY Store</title>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:linear-gradient(180deg,#0b0b0c,#141416);
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* HEADER */
+header{padding:16px}
+.top-bar{display:flex;justify-content:space-between;align-items:center}
 
-<header>
-  <div class="top-bar">
-    <h1 class="logo">NOZY Store</h1>
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  letter-spacing:2px;
+}
 
-    <div class="cart-icon" onclick="toggleCart()">
-      🛍
-      <span id="cart-count">0</span>
-    </div>
-  </div>
+.sub{
+  text-align:center;
+  font-size:13px;
+  opacity:.8;
+  margin:8px 0 16px;
+}
 
-  <p class="sub">
-    Пространство женского люкса<br>
-    Самовывоз г. Душанбе · Доставка Душанбе / Истаравшан<br>
-    📞 +992 973 589 922
-  </p>
+/* CART ICON */
+.cart-icon{
+  position:relative;
+  font-size:24px;
+  cursor:pointer;
+}
+.cart-icon span{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:#e63946;
+  color:#fff;
+  font-size:12px;
+  padding:2px 7px;
+  border-radius:50%;
+}
 
-  <div id="categories" class="categories"></div>
-</header>
+/* CATEGORIES */
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+}
+.cat{
+  padding:8px 18px;
+  border-radius:20px;
+  background:#1b1b1d;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:.3s;
+}
+.cat.active{
+  background:#d4b36a;
+  color:#000;
+  font-weight:bold;
+}
 
-<main id="products" class="products"></main>
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  padding:12px;
+}
 
-<div id="overlay" onclick="closeAll()"></div>
+.card{
+  background:#171719;
+  border-radius:14px;
+  padding:10px;
+  animation:fadeUp .5s ease;
+}
 
-<!-- КОРЗИНА -->
-<div id="cart" class="cart">
-  <h3>Корзина</h3>
-  <div id="cart-items"></div>
-  <p id="total"></p>
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-  <input id="phone" placeholder="Номер телефона">
-  <select id="delivery">
-    <option>Самовывоз</option>
-    <option>Доставка</option>
-  </select>
+/* IMAGE SWIPE */
+.img-wrap{
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+}
+.card img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  transition:.3s;
+}
 
-  <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
-</div>
+.dots{
+  position:absolute;
+  bottom:6px;
+  width:100%;
+  text-align:center;
+}
+.dots span{
+  font-size:10px;
+  opacity:.4;
+  margin:0 2px;
+}
+.dots .active{opacity:1}
 
-<!-- FULLSCREEN -->
-<div id="viewer" class="viewer">
-  <div class="blur-bg" id="blur-bg"></div>
-  <img id="viewer-img">
-  <div id="viewer-dots"></div>
-</div>
+/* TEXT */
+.card h4{margin:6px 0 2px;font-size:15px}
+.card p{font-size:13px;opacity:.85}
 
-<script src="app.js"></script>
-</body>
-</html>
+/* FORM */
+select,input{
+  width:100%;
+  margin-top:6px;
+  padding:7px;
+  border-radius:8px;
+  border:none;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  margin-top:8px;
+  padding:9px;
+  border-radius:10px;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+.card button{
+  background:linear-gradient(135deg,#d4b36a,#f1dca7);
+  color:#000;
+}
+
+/* CART */
+.cart{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:#121214;
+  padding:16px;
+  display:none;
+  z-index:10;
+}
+
+/* OVERLAY */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  z-index:5;
+}
+
+/* FULLSCREEN */
+.viewer{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:20;
+}
+.blur-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  filter:blur(20px);
+  opacity:.6;
+}
+.viewer img{
+  max-width:90%;
+  max-height:80%;
+  z-index:2;
+}
+#viewer-dots{
+  z-index:2;
+  margin-top:10px;
+}
+#viewer-dots span{
+  font-size:10px;
+  margin:0 3px;
+  opacity:.4;
+}
+#viewer-dots .active{opacity:1}
+
 /* ТОЧКИ ПОД ФОТО (ОБНОВЛЕН ЦВЕТ) */
 .dots span,
 #viewer-dots span {
@@ -70,5 +197,6 @@
 #viewer-dots span.active {
   color: #d4af37; /* ЗОЛОТОЙ — дорого и видно */
 }
+
 
 
