@@ -156,3 +156,5 @@ function closeAll(){
   document.getElementById("cart").style.display="none";
   document.getElementById("overlay").style.display="none";
 }
+
+
