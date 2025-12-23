@@ -4,16 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NOZY Store</title>
+
+  <!-- Люксовый шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>NOZY Store</h1>
+  <h1 class="logo">NOZY Store</h1>
   <p class="sub">
     Пространство женского люкса<br>
     Самовывоз г. Душанбе · Доставка Душанбе / Истаравшан<br>
-    📞 +992973589922
+    📞 +992 973 589 922
   </p>
 
   <div id="categories" class="categories"></div>
@@ -40,11 +44,11 @@
     <option>Доставка</option>
   </select>
 
-  <button onclick="sendOrder()">Оформить заказ</button>
+  <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- Fullscreen -->
-<div id="viewer" class="viewer" onclick="closeViewer()">
+<!-- Fullscreen просмотр -->
+<div id="viewer" class="viewer">
   <img id="viewer-img">
   <div id="viewer-dots"></div>
 </div>
