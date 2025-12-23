@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOZY Store</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOZY Store — пространство женского люкса</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <div class="top-bar">
-    <h1 class="logo">NOZY Store</h1>
-
-    <div class="cart-icon" onclick="toggleCart()">
-      🛍
-      <span id="cart-count">0</span>
-    </div>
+<header class="header">
+  <div class="brand">
+    <h1>NOZY Store</h1>
+    <p>пространство женского люкса</p>
+    <span class="phone">📞 +992 97 358 9922</span>
   </div>
 
-  <p class="sub">
-    Пространство женского люкса<br>
-    Самовывоз г. Душанбе · Доставка Душанбе / Истаравшан<br>
-    📞 +992 973 589 922
-  </p>
-
-  <div id="categories" class="categories"></div>
+  <div class="cart-btn" onclick="toggleCart()">
+    🛍 <span id="cart-count">0</span>
+  </div>
 </header>
 
-<main id="products" class="products"></main>
+<!-- Категории -->
+<div id="categories" class="categories"></div>
 
-<div id="overlay" onclick="closeAll()"></div>
+<!-- Товары -->
+<div id="products" class="products"></div>
 
-<!-- КОРЗИНА -->
+<!-- Корзина -->
 <div id="cart" class="cart">
   <h3>Корзина</h3>
   <div id="cart-items"></div>
-  <p id="total"></p>
+  <p id="total">Итого: 0 TJS</p>
 
-  <input id="phone" placeholder="Номер телефона">
+  <input id="phone" type="text" placeholder="Ваш номер телефона">
   <select id="delivery">
-    <option>Самовывоз</option>
-    <option>Доставка</option>
+    <option value="Самовывоз Душанбе">Самовывоз Душанбе</option>
+    <option value="Доставка Душанбе">Доставка Душанбе</option>
+    <option value="Доставка Истаравшан">Доставка Истаравшан</option>
   </select>
 
-  <button class="checkout-btn" onclick="sendOrder()">Оформить заказ</button>
+  <button onclick="sendOrder()">Оформить заказ</button>
 </div>
 
-<!-- FULLSCREEN -->
-<div id="viewer" class="viewer">
-  <div class="blur-bg" id="blur-bg"></div>
+<!-- Fullscreen viewer -->
+<div id="viewer">
+  <div class="viewer-bg" onclick="closeViewer()"></div>
   <img id="viewer-img">
   <div id="viewer-dots"></div>
 </div>
 
+<div id="overlay" onclick="closeAll()"></div>
+
 <script src="app.js"></script>
 </body>
 </html>
+
+
 
 
 
