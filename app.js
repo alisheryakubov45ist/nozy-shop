@@ -1,150 +1,189 @@
-let products=[],cart=[],currentCategory="Одежда";
+let products = [];
+let cart = [];
+let currentCategory = "Одежда";
 
-/* LOAD */
+// ЗАГРУЗКА ТОВАРОВ
 fetch("products.json")
-.then(r=>r.json())
-.then(d=>{
-  products=d.products;
-  renderCategories();
-  filterCat(currentCategory);
-});
+  .then(r => r.json())
+  .then(d => {
+    products = d.products;
+    renderCategories();
+    filterCat(currentCategory);
+  });
 
-/* CATEGORIES */
-function renderCategories(){
-  const cats=["Одежда","Обувь","Платки","Аксессуары"];
-  const el=document.getElementById("categories");
-  el.innerHTML="";
-  cats.forEach(c=>{
-    const d=document.createElement("div");
-    d.className="cat"+(c===currentCategory?" active":"");
-    d.innerText=c;
-    d.onclick=()=>{currentCategory=c;renderCategories();filterCat(c);}
+// КАТЕГОРИИ
+function renderCategories() {
+  const cats = ["Одежда", "Обувь", "Платки", "Аксессуары"];
+  const el = document.getElementById("categories");
+  el.innerHTML = "";
+
+  cats.forEach(c => {
+    const d = document.createElement("div");
+    d.className = "cat" + (c === currentCategory ? " active" : "");
+    d.innerText = c;
+    d.onclick = () => {
+      currentCategory = c;
+      renderCategories();
+      filterCat(c);
+    };
     el.appendChild(d);
   });
 }
 
-/* PRODUCTS */
-function filterCat(cat){
-  renderProducts(products.filter(p=>p.category===cat));
+function filterCat(cat) {
+  renderProducts(products.filter(p => p.category === cat));
 }
 
-function renderProducts(list){
-  const el=document.getElementById("products");
-  el.innerHTML="";
-  list.forEach(p=>{
-    let idx=0,startX=0;
+// ТОВАРЫ
+function renderProducts(list) {
+  const el = document.getElementById("products");
+  el.innerHTML = "";
 
-    const card=document.createElement("div");
-    card.className="card";
+  list.forEach(p => {
+    let imgIndex = 0;
+    let startX = 0;
 
-    const wrap=document.createElement("div");
-    wrap.className="img-wrap";
+    const card = document.createElement("div");
+    card.className = "card";
 
-    const img=document.createElement("img");
-    img.src=p.images[0];
+    const img = document.createElement("img");
+    img.src = p.images[0];
 
-    const dots=document.createElement("div");
-    dots.className="dots";
-
-    function update(){
-      img.src=p.images[idx];
-      dots.innerHTML=p.images.map((_,i)=>`<span class="${i===idx?'active':''}">●</span>`).join("");
-    }
-    update();
-
-    wrap.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-    wrap.addEventListener("touchend",e=>{
-      const dx=e.changedTouches[0].clientX-startX;
-      if(Math.abs(dx)>40){
-        idx=(dx<0?idx+1:idx-1+p.images.length)%p.images.length;
-        update();
+    // свайп на главном экране
+    img.ontouchstart = e => startX = e.touches[0].clientX;
+    img.ontouchend = e => {
+      let dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) {
+        imgIndex = dx < 0
+          ? (imgIndex + 1) % p.images.length
+          : (imgIndex - 1 + p.images.length) % p.images.length;
+        img.src = p.images[imgIndex];
       }
-    });
+    };
 
-    wrap.onclick=()=>openViewer(p.images,idx);
+    img.onclick = () => openViewer(p.images);
 
-    wrap.append(img,dots);
+    const title = document.createElement("h4");
+    title.innerText = p.name;
 
-    const color=document.createElement("select");
-    p.colors.forEach(c=>color.add(new Option(c,c)));
+    const price = document.createElement("p");
+    price.innerText = p.price + " TJS";
 
-    const size=document.createElement("select");
-    p.sizes.forEach(s=>size.add(new Option(s,s)));
+    const color = document.createElement("select");
+    p.colors.forEach(c => color.add(new Option(c, c)));
 
-    const btn=document.createElement("button");
-    btn.innerText="В корзину";
-    btn.onclick=()=>{
-      cart.push({name:p.name,price:p.price,color:color.value,size:size.value});
-      document.getElementById("cart-count").innerText=cart.length;
+    const size = document.createElement("select");
+    p.sizes.forEach(s => size.add(new Option(s, s)));
+
+    const btn = document.createElement("button");
+    btn.innerText = "В корзину";
+    btn.onclick = () => {
+      cart.push({
+        name: p.name,
+        price: p.price,
+        color: color.value,
+        size: size.value
+      });
+      document.getElementById("cart-count").innerText = cart.length;
       renderCart();
     };
 
-    card.append(wrap,`<h4>${p.name}</h4>`,`<p>${p.price} TJS</p>`,color,size,btn);
+    card.append(img, title, price, color, size, btn);
     el.appendChild(card);
   });
 }
 
-/* CART */
-function renderCart(){
-  const el=document.getElementById("cart-items");
-  el.innerHTML="";
-  let t=0;
-  cart.forEach(i=>{t+=i.price;el.innerHTML+=`<p>${i.name} ${i.size}/${i.color}</p>`});
-  document.getElementById("total").innerText="Итого: "+t+" TJS";
-}
+// КОРЗИНА
+function renderCart() {
+  const el = document.getElementById("cart-items");
+  el.innerHTML = "";
+  let total = 0;
 
-function toggleCart(){
-  cart.length&& (document.getElementById("cart").style.display="block",
-  document.getElementById("overlay").style.display="block");
-}
-
-function closeAll(){
-  document.getElementById("cart").style.display="none";
-  document.getElementById("overlay").style.display="none";
-  closeViewer();
-}
-
-/* ORDER */
-function sendOrder(){
-  const phone=document.getElementById("phone").value;
-  const del=document.getElementById("delivery").value;
-  let msg="🛍 NOZY Store\n";
-  cart.forEach(i=>msg+=`${i.name} ${i.size}/${i.color}\n`);
-  msg+=`📞 ${phone}\n🚚 ${del}`;
-  window.open("https://t.me/AMULEEE?text="+encodeURIComponent(msg));
-}
-
-/* FULLSCREEN */
-let vImgs=[],vIdx=0,startX=0;
-
-function openViewer(arr,i){
-  vImgs=arr;vIdx=i;
-  const v=document.getElementById("viewer");
-  const img=document.getElementById("viewer-img");
-  const blur=document.getElementById("blur-bg");
-  const dots=document.getElementById("viewer-dots");
-
-  function upd(){
-    img.src=vImgs[vIdx];
-    blur.style.backgroundImage=`url(${vImgs[vIdx]})`;
-    dots.innerHTML=vImgs.map((_,i)=>`<span class="${i===vIdx?'active':''}">●</span>`).join("");
-  }
-  upd();
-
-  v.style.display="flex";
-
-  v.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-  v.addEventListener("touchend",e=>{
-    const dx=e.changedTouches[0].clientX-startX;
-    if(Math.abs(dx)>40){
-      vIdx=(dx<0?vIdx+1:vIdx-1+vImgs.length)%vImgs.length;
-      upd();
-    }
+  cart.forEach((i, idx) => {
+    total += i.price;
+    el.innerHTML += `
+      <p>
+        ${i.name} (${i.size}, ${i.color}) — <b>${i.price} TJS</b>
+        <span style="cursor:pointer;color:red" onclick="removeFromCart(${idx})"> ❌</span>
+      </p>
+    `;
   });
 
-  v.onclick=closeViewer;
+  document.getElementById("total").innerText = "Итого: " + total + " TJS";
 }
 
-function closeViewer(){
-  document.getElementById("viewer").style.display="none";
+function removeFromCart(i) {
+  cart.splice(i, 1);
+  document.getElementById("cart-count").innerText = cart.length;
+  renderCart();
 }
+
+function toggleCart() {
+  document.getElementById("cart").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+}
+
+// ОТПРАВКА В TELEGRAM
+function sendOrder() {
+  const phone = document.getElementById("phone").value;
+  const delivery = document.getElementById("delivery").value;
+
+  if (!phone) {
+    alert("Введите номер телефона");
+    return;
+  }
+
+  let total = 0;
+  let msg = "🛍 ЗАКАЗ NOZY Store\n\n";
+
+  cart.forEach(i => {
+    msg += `• ${i.name}\n  ${i.size} / ${i.color}\n  💰 ${i.price} TJS\n\n`;
+    total += i.price;
+  });
+
+  msg += `💵 Итого: ${total} TJS\n`;
+  msg += `📞 Телефон: ${phone}\n`;
+  msg += `🚚 Получение: ${delivery}`;
+
+  window.open(
+    "https://t.me/AMULEEE?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
+}
+
+// FULLSCREEN
+let viewerImages = [];
+let viewerIndex = 0;
+let viewerStartX = 0;
+
+function openViewer(images) {
+  viewerImages = images;
+  viewerIndex = 0;
+  document.getElementById("viewer").style.display = "flex";
+  document.getElementById("overlay").style.display = "block";
+  showViewer();
+}
+
+function showViewer() {
+  document.getElementById("viewer-img").src = viewerImages[viewerIndex];
+}
+
+const vImg = document.getElementById("viewer-img");
+
+vImg.ontouchstart = e => viewerStartX = e.touches[0].clientX;
+vImg.ontouchend = e => {
+  let dx = e.changedTouches[0].clientX - viewerStartX;
+  if (Math.abs(dx) > 50) {
+    viewerIndex = dx < 0
+      ? (viewerIndex + 1) % viewerImages.length
+      : (viewerIndex - 1 + viewerImages.length) % viewerImages.length;
+    showViewer();
+  }
+};
+
+function closeViewer() {
+  document.getElementById("viewer").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+
