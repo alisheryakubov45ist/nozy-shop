@@ -3,7 +3,7 @@
 body {
   margin:0;
   font-family: 'Arial', sans-serif;
-  background: #111;
+  background: #111; /* Темный фон */
   color: #fff;
 }
 
@@ -18,7 +18,7 @@ body {
   font-family: 'Playfair Display', serif;
   font-size: 36px;
   font-weight: bold;
-  color: #ff9900;
+  color: #ff9900; /* яркий элитный цвет */
 }
 
 .slogan {
@@ -65,7 +65,7 @@ body {
 .card {
   background:#222;
   padding:10px;
-  flex: 0 0 48%; /* по 2 карточки в ряд */
+  flex: 0 0 45%; /* по 2 карточки в ряд */
   border-radius:10px;
   text-align:center;
   position:relative;
@@ -154,7 +154,7 @@ button {
   align-items:center;
   background: rgba(0,0,0,0.7);
   z-index:2000;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px); /* блюр вокруг фото */
 }
 
 #close-viewer {
@@ -188,4 +188,15 @@ button {
 
 #viewer-dots span.active {
   color: #ff9900;
+}
+
+/* Адаптив для мобильных */
+@media screen and (max-width: 600px) {
+  .card {
+    flex: 0 0 100%;
   }
+  .categories {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+}
