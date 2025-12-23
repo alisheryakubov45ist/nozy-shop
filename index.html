@@ -1,68 +1,54 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NOZY Store — пространство женского люкса</title>
-
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="app.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOZY Store — пространство женского люкса</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="app.js"></script>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="logo">NOZY Store</h1>
-    <p class="slogan">пространство женского люкса</p>
-    <p class="contact">📞 +992 97 358 99 22</p>
-    <p class="info">
-      🏬 Самовывоз в г. Душанбе &nbsp; | &nbsp; 🚚 Доставка по г. Душанбе и г. Истаравшан &nbsp; | &nbsp; 💰 Оплата после получения
-    </p>
+<header class="header">
+  <h1 class="logo">NOZY Store</h1>
+  <p class="slogan">пространство женского люкса</p>
+  <p class="contact">📞 +992 97 358 99 22</p>
+  <p class="info">
+    🏬 Самовывоз в г. Душанбе &nbsp; | &nbsp; 🚚 Доставка по г. Душанбе и г. Истаравшан &nbsp; | &nbsp; 💰 Оплата после получения
+  </p>
 
-    <!-- КОРЗИНА -->
-    <div class="cart-icon" onclick="toggleCart()">
-      🛍
-      <span id="cart-count">0</span>
-    </div>
-  </header>
+  <div class="cart-icon" onclick="toggleCart()">
+    🛍<span id="cart-count">0</span>
+  </div>
+</header>
 
-  <!-- КАТЕГОРИИ -->
+<main>
   <div id="categories" class="categories"></div>
+  <div id="products" class="products"></div>
+</main>
 
-  <!-- ТОВАРЫ -->
-  <main id="products" class="products"></main>
+<!-- КОРЗИНА -->
+<div id="cart" class="cart">
+  <h3>Ваша корзина</h3>
+  <div id="cart-items"></div>
+  <p id="total">Итого: 0 TJS</p>
+  <input type="tel" id="phone" placeholder="Ваш номер телефона">
+  <select id="delivery">
+    <option value="Самовывоз (г. Душанбе)">Самовывоз (г. Душанбе)</option>
+    <option value="Доставка по г. Душанбе">Доставка по г. Душанбе</option>
+    <option value="Доставка г. Истаравшан">Доставка г. Истаравшан</option>
+  </select>
+  <button onclick="sendOrder()">Оформить заказ</button>
+</div>
 
-  <!-- КОРЗИНА -->
-  <div id="cart" class="cart">
-    <h3>Ваша корзина</h3>
+<div id="overlay" onclick="closeAll()"></div>
 
-    <div id="cart-items"></div>
-
-    <p id="total">Итого: 0 TJS</p>
-
-    <input
-      type="tel"
-      id="phone"
-      placeholder="Ваш номер телефона"
-    />
-
-    <select id="delivery">
-      <option value="Самовывоз (г. Душанбе)">Самовывоз (г. Душанбе)</option>
-      <option value="Доставка по г. Душанбе">Доставка по г. Душанбе</option>
-      <option value="Доставка г. Истаравшан">Доставка г. Истаравшан</option>
-    </select>
-
-    <button onclick="sendOrder()">Оформить заказ</button>
-  </div>
-
-  <!-- OVERLAY (клик закрывает все) -->
-  <div id="overlay" onclick="closeAll()"></div>
-
-  <!-- FULLSCREEN VIEWER -->
-  <div id="viewer" onclick="closeViewer()">
-    <img id="viewer-img" />
-    <div id="viewer-dots"></div>
-  </div>
+<!-- FULLSCREEN VIEWER -->
+<div id="viewer">
+  <button id="close-viewer" onclick="closeViewer()">×</button>
+  <img id="viewer-img">
+  <div id="viewer-dots"></div>
+</div>
 
 </body>
-</html>
+  </html>
