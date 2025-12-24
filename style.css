@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -95,9 +93,7 @@ body {
   transition: transform .25s;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-}
+.card:hover { transform: translateY(-3px); }
 
 .card img {
   width: 100%;
@@ -107,24 +103,12 @@ body {
 }
 
 /* DOTS */
-.swipe-dots span {
-  color: #555;
-  font-size: 12px;
-}
-
-.swipe-dots span.active {
-  color: #d4af37;
-}
+.swipe-dots span { color: #555; font-size: 12px; }
+.swipe-dots span.active { color: #d4af37; }
 
 /* TEXT */
-.card h4 {
-  margin: 8px 0 4px;
-}
-
-.card p {
-  margin: 0 0 6px;
-  font-weight: bold;
-}
+.card h4 { margin: 8px 0 4px; }
+.card p { margin: 0 0 6px; font-weight: bold; }
 
 /* SELECTS */
 select {
@@ -211,7 +195,5 @@ button {
 
 /* MOBILE */
 @media (max-width: 420px) {
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  }
+  .products { grid-template-columns: repeat(2, 1fr); }
+}
