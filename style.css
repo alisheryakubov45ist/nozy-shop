@@ -6,49 +6,68 @@
 
 body {
   margin: 0;
+  background: #0e0e0e;
   font-family: Arial, sans-serif;
-  background: #111;
   color: #fff;
 }
 
-/* ================= HEADER ================= */
-
+/* HEADER */
 .header {
   text-align: center;
-  padding: 22px 16px;
-  background: #111;
+  padding: 20px;
+  background: #161616;
+  position: relative;
 }
 
 .logo {
   font-family: 'Playfair Display', serif;
-  font-size: 34px;
-  font-weight: 700;
-  color: #d4af37; /* золото */
-  letter-spacing: 1px;
+  font-size: 36px;
+  color: #d4af37;
 }
 
 .slogan {
   font-family: 'Playfair Display', serif;
-  font-size: 16px;
   font-style: italic;
-  color: #bfa14a;
+  color: #c9b37e;
   margin-top: 4px;
 }
 
-/* ================= CATEGORIES ================= */
+.contact-line,
+.info-line {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
 
+/* CART ICON */
+.cart-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+#cart-count {
+  background: #d4af37;
+  color: #000;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 14px;
+}
+
+/* CATEGORIES */
 .categories {
   display: flex;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 10px;
   overflow-x: auto;
 }
 
 .cat {
   padding: 8px 16px;
   border-radius: 20px;
-  background: #1c1c1c;
-  font-size: 14px;
+  background: #1f1f1f;
   white-space: nowrap;
   cursor: pointer;
 }
@@ -58,154 +77,141 @@ body {
   color: #000;
 }
 
-/* ================= PRODUCTS (ZARA GRID) ================= */
-
+/* PRODUCTS GRID */
 .products {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 карточки */
-  gap: 14px;
-  padding: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 12px;
 }
 
-/* ================= CARD (LUXURY STYLE) ================= */
-
+/* CARD */
 .card {
-  background: #141414;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  background: #1a1a1a;
+  border-radius: 14px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transition: transform .25s;
 }
 
-/* мягкий подъём */
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(-3px);
 }
-
-/* ================= IMAGE ================= */
 
 .card img {
   width: 100%;
-  aspect-ratio: 3 / 4; /* как у ZARA */
+  height: 220px;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  border-radius: 12px;
 }
 
-/* медленный zoom */
-.card:hover img {
-  transform: scale(1.06);
-}
-
-/* ================= INFO ================= */
-
-.card-content {
-  padding: 10px;
-}
-
-.product-title {
-  font-size: 14px;
-  letter-spacing: 0.4px;
-  margin-bottom: 6px;
-  color: #eaeaea;
-}
-
-.product-price {
-  font-size: 13px;
-  color: #d4af37;
-}
-
-/* ================= DOTS ================= */
-
-.swipe-dots {
-  text-align: center;
-  margin: 6px 0 4px;
-}
-
+/* DOTS */
 .swipe-dots span {
-  font-size: 12px;
   color: #555;
-  margin: 0 2px;
+  font-size: 12px;
 }
 
 .swipe-dots span.active {
   color: #d4af37;
 }
 
-/* ================= CART ICON ================= */
+/* TEXT */
+.card h4 {
+  margin: 8px 0 4px;
+}
 
-.cart-icon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  font-size: 26px;
-  color: #d4af37;
+.card p {
+  margin: 0 0 6px;
+  font-weight: bold;
+}
+
+/* SELECTS */
+select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+/* BUTTONS */
+button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #2c2c2c;
+  color: #fff;
   cursor: pointer;
 }
 
-#cart-count {
-  background: #b00020;
-  color: #fff;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
-  margin-left: 4px;
+/* ADD TO CART */
+.card button {
+  background: linear-gradient(135deg, #d4af37, #f5d77a);
+  color: #000;
+  font-weight: bold;
 }
 
-/* ================= IMAGE VIEWER ================= */
-
-#viewer {
-  display: none;
+/* OVERLAY + BLUR */
+#overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(10px);
-  z-index: 2000;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  display: none;
+  z-index: 1000;
+}
+
+/* CART */
+.cart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 14px;
+  display: none;
+  z-index: 1001;
+}
+
+/* VIEWER */
+#viewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  display: none;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  z-index: 2000;
 }
 
 #viewer-img {
   max-width: 90%;
   max-height: 80%;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 #close-viewer {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 32px;
-  color: #fff;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* ================= MOBILE ================= */
-
-@media screen and (max-width: 600px) {
-  .products {
-    grid-template-columns: repeat(2, 1fr); /* всегда 2 */
-  }
-}
-/* ===== LUXURY ADD TO CART BUTTON (SAFE) ===== */
-.card button {
-  width: 100%;
-  padding: 11px 0;
-  border-radius: 999px;
-  border: 1px solid #d4af37;
   background: transparent;
-  color: #d4af37;
-  font-size: 13px;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-  transition: all 0.35s ease;
+  border: none;
+  color: #fff;
+  font-size: 28px;
 }
 
-/* эффект дорогого бренда */
-.card button:hover {
-  background: #d4af37;
-  color: #111;
-  box-shadow: 0 6px 18px rgba(212,175,55,0.35);
-}
+/* MOBILE */
+@media (max-width: 420px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  }
