@@ -61,17 +61,18 @@ function renderProducts(list){
 
     img.addEventListener("click",(e)=>{ openViewer(p.images); e.stopPropagation(); });
 
+    // swipe на карточках
     let xStart = null;
-    img.addEventListener("touchstart", evt=>{ xStart=evt.touches[0].clientX; }, false);
+    img.addEventListener("touchstart", evt=>{ xStart = evt.touches[0].clientX; }, false);
     img.addEventListener("touchmove", evt=>{
       if(!xStart) return;
       let xEnd = evt.touches[0].clientX;
       let diff = xStart - xEnd;
-      if(diff>50){ imgIndex=(imgIndex+1)%p.images.length; }
-      else if(diff<-50){ imgIndex=(imgIndex-1+p.images.length)%p.images.length; }
-      img.src=p.images[imgIndex];
+      if(diff > 30){ imgIndex = (imgIndex + 1) % p.images.length; }
+      else if(diff < -30){ imgIndex = (imgIndex - 1 + p.images.length) % p.images.length; }
+      img.src = p.images[imgIndex];
       updateDots();
-      xStart=null;
+      xStart = null;
     }, false);
 
     const h4 = document.createElement("h4"); h4.innerText = p.name;
@@ -119,7 +120,7 @@ function toggleCart(){
   const cartEl=document.getElementById("cart"); 
   const overlay=document.getElementById("overlay");
   cartEl.style.display="block"; overlay.style.display="block";
-  overlay.onclick = ()=>closeAll(); // overlay закрывает
+  overlay.onclick = ()=>closeAll();
 }
 
 function sendOrder(){
@@ -138,16 +139,22 @@ function openViewer(images){
   closeAll();
   currentImages = images; currentIndex = 0;
   showImage();
-  const v=document.getElementById("viewer"); const overlay=document.getElementById("overlay");
-  v.style.display="flex"; overlay.style.display="block";
+  const v = document.getElementById("viewer");
+  const overlay = document.getElementById("overlay");
+  v.style.display = "flex"; overlay.style.display = "block";
 
-  v.addEventListener("touchstart", evt=>xStart=evt.touches[0].clientX, false);
+  // swipe на fullscreen
+  let xStart = null;
+  v.addEventListener("touchstart", evt=>{ xStart = evt.touches[0].clientX; }, false);
   v.addEventListener("touchmove", evt=>{
-    if(!xStart) return; let xEnd=evt.touches[0].clientX; let diff=xStart-xEnd;
-    if(diff>50){ nextImage(); } else if(diff<-50){ prevImage(); } xStart=null;
+    if(!xStart) return;
+    let xEnd = evt.touches[0].clientX;
+    let diff = xStart - xEnd;
+    if(diff > 30){ nextImage(); xStart=null; }
+    else if(diff < -30){ prevImage(); xStart=null; }
   }, false);
 
-  overlay.onclick = ()=>closeAll(); // overlay закрывает без остаточного blur
+  overlay.onclick = ()=>closeAll();
 }
 
 function showImage(){
